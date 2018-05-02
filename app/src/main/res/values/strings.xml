@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">LeChuangApp</string>
+
+    <!--网络连接-->
+    <string name="net_error_toast">目前处于无网络状态!</string>
+    <string name="net_error_toast1">请检查网络是否连接</string>
+    <string name="net_error">网络异常，请检查网络</string>
+    <string name="net_error1">亲！您的网络开小差了哦</string>
+    <!--提示语-->
+    <string name="no_emoji">输入内容不能包含表情等字符</string>
+    <string name="loading">加载中,请稍后...</string>
+    <string name="search_show">粘贴商品标题搜索优惠券</string>
+    <string name="share_show">您目前不是代理,分享暂无积分</string>
+
+
+    <!--商品分享后台给的分享文案 不包含 "{选择分享渠道后生成淘口令}"  时报的提示-->
+    <string name="share_error1">分享出错,错误码0001,请联系管理员</string>
+
+</resources>

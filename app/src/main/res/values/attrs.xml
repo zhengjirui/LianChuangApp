@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="NavLayout">
+
+        <!--底部分割线-->
+        <attr name="navDivisionHeight" format="dimension"></attr>
+        <attr name="navDivisionBgColor" format="color">red</attr>
+
+        <!--底部导航的背景色和高度-->
+        <attr name="navHeight" format="dimension">100</attr>
+        <attr name="navBgColor" format="color">1</attr><!--#FFD3D3D3-->
+        <attr name="navTabCurrent" format="integer">2</attr>
+    </declare-styleable>
+</resources>

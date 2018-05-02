@@ -1,0 +1,197 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+    //.jpg修改成了.png就会出现问题,加上下面代码
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+
+    }
+    //默认配置
+    defaultConfig {
+        multiDexEnabled true
+        minSdkVersion 19
+        targetSdkVersion 24
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        flavorDimensions ""
+    }
+
+    //签名
+    signingConfigs {
+        quanquanjie {
+            //签名地址
+            storeFile file("\\jks\\key_quanquanjie.jks")
+            //签名的密码
+            storePassword "123456"
+            //别名
+            keyAlias "quanquanjie"
+            //别名的密码
+            keyPassword "123456"
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk')
+                    && 'release'.equals(variant.buildType.name)) {
+                //as3.0之后，这里的一段需要修改成这样
+                output.outputFileName = "${variant.flavorName}_v${variant.versionName}_${buildTime()}.apk"
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.quanquanjie
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.quanquanjie
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        //券券街
+        quanquanjie {
+            applicationId "com.lechuang.quanquanjie"
+            versionCode 103
+            versionName "1.0.3"
+            def appName = "券券街"
+            def appNamePinyin = "QUANQUANJIE"
+            //服务器地址
+            def uri = "http://qqj.1kg.fun/"
+            //淘宝pid(百川用户pid   非常重要  注意替换)
+            def ali_PID = "mm_129981298_0_0"
+            //appkey  (百川的appkey 用于客服功能  注意替换)
+            def ali_APP_KEY = "24763367"
+            def JPUSH_APPKEY = "4f936aedd7d7703701241544"
+            def UMENG_APPKEY = "5a6097e78f4a9d6f6b000117"
+            putParameter(it, applicationId, appName, appNamePinyin, uri, ali_PID, ali_APP_KEY, JPUSH_APPKEY, UMENG_APPKEY)
+        }
+
+        //桔子姑娘
+        juziguniang {
+            applicationId "com.lechuang.juziguniang"
+            versionCode 110
+            versionName "1.1.0"
+            def appName = "桔子姑娘"
+            def appNamePinyin = "JUZIGUNIANG"
+            //服务器地址
+            def uri = "http://juziguniang.lechuangapp.com/"
+            //淘宝pid(百川用户pid   非常重要  注意替换)
+            def ali_PID = "mm_125575354_0_0"
+            //appkey  (百川的appkey 用于客服功能  注意替换)
+            def ali_APP_KEY = "24672797"
+            def JPUSH_APPKEY = "6a536754340003970b08785d"
+            def UMENG_APPKEY = "59f7d8e0a40fa31cad00000c"
+            //在主页面底部,是否是帮助中心,而不是爆料
+            putParameter(it, applicationId, appName, appNamePinyin, uri, ali_PID, ali_APP_KEY, JPUSH_APPKEY, UMENG_APPKEY)
+        }
+    }
+}
+
+static def putParameter(
+        def it, def applicationId, def appName, def appNamePinyin, def uri, def ali_PID,
+        def ali_APP_KEY, def JPUSH_APPKEY, def UMENG_APPKEY) {
+    it.resValue "string", "app_name_res", appName
+    it.resValue "string", "app_name_pinyin_res", appNamePinyin
+    it.resValue "string", "app_agreement", "《" + appName + "用户协议》"
+    it.buildConfigField 'String', 'app_name', "\"${appName}\""
+    it.buildConfigField 'String', 'QUrl_url', "\"${uri}\""
+    it.buildConfigField 'String', 'ali_PID', "\"${ali_PID}\""
+    it.buildConfigField 'String', 'ali_APP_KEY', "\"${ali_APP_KEY}\""
+    it.manifestPlaceholders = [
+            JPUSH_PKGNAME: applicationId,
+            JPUSH_CHANNEL: "developer-default",
+            UMENG_CHANNEL: "Channel ID",
+            JPUSH_APPKEY : JPUSH_APPKEY,
+            UMENG_APPKEY : UMENG_APPKEY
+    ]
+}
+
+static def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    compile 'com.android.support.test:runner:1.0.1'
+    compile 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.alibaba:fastjson:1.2.9'
+    compile 'com.alibaba.alipay:alipaySingle:20160825@jar'
+    compile 'com.ali.auth.sdk:alibabauth_core:1.1.4@jar'
+    compile 'com.ali.auth.sdk:alibabauth_ui:1.1.4@aar'
+    compile 'com.ali.auth.sdk:alibabauth_ext:1.1.4@jar'
+    compile 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
+    compile 'com.taobao.android:securityguardaar3:5.1.81@aar'
+    compile 'com.taobao.android:securitybodyaar3:5.1.25@aar'
+    compile 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
+    compile 'com.taobao.android:alibc_applink:2.0.0.9@jar'
+    compile 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
+    compile 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
+    compile 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compile 'io.reactivex:rxjava:1.1.7'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.github.bumptech.glide:okhttp-integration:1.4.0'
+    compile 'pub.devrel:easypermissions:0.2.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.zxing:android-core:3.3.0'
+    compile 'com.google.zxing:core:3.3.0'
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    compile 'se.emilsjolander:stickylistheaders:2.7.0'
+    compile 'com.alibaba.mobileim:IMCore:2.0.2.1@aar'
+    compile 'com.alibaba.mobileim:IMKit:2.0.2.1@aar'
+    compile 'cn.jiguang.sdk:jpush:3.0.9'
+    compile 'cn.jiguang.sdk:jcore:1.1.7'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'org.greenrobot:eventbus:3.1.1'
+//    compile 'id.zelory:compressor:1.0.4'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'com.yanzhenjie:permission:2.0.0-rc4'
+    //    compile 'com.android.support:design:26.0.0-alpha1'
+    //    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+    //    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    //    compile 'com.jude:rollviewpager:1.4.5'
+    //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.24'
+    //    compile 'com.github.anzaizai:EasyRefreshLayout:1.3.1'
+    //    testCompile 'junit:junit:4.12'
+    implementation files('libs/umeng-analytics-7.4.0.jar')
+    implementation files('libs/umeng-common-1.4.0.jar')
+}
