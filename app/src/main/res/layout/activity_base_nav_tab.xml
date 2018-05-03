@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/base_header" />
+    <include layout="@layout/base_header"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/fragment_layout"
