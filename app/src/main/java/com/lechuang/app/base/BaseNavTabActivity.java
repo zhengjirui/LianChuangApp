@@ -30,7 +30,6 @@ public abstract class BaseNavTabActivity extends BaseActivity implements INavTab
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(R.layout.activity_base_nav_tab);
-        setHeadVisibility(View.GONE);
     }
 
     @Override
