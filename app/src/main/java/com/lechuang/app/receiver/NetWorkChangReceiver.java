@@ -7,8 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
-import com.lechuang.app.events.EventBusUtils;
-import com.lechuang.app.events.NetStateLisenter;
+import com.lechuang.app.events.NetStateEvent;
+import com.lechuang.app.lisenters.INetStateLisenter;
 import com.lechuang.app.utils.Logger;
 
 /**
@@ -17,8 +17,16 @@ import com.lechuang.app.utils.Logger;
  * @describe:
  */
 
-public class NetWorkChangReceiver extends BroadcastReceiver {
+public class NetWorkChangReceiver extends BroadcastReceiver{
     private final String TAG = "TAG_NetWorkChangReceiver";
+
+    private INetStateLisenter mINetStateLisenter;
+
+
+    public NetWorkChangReceiver(INetStateLisenter mINetStateLisenter) {
+        this.mINetStateLisenter = mINetStateLisenter;
+    }
+
     /**
      * 获取连接类型
      *
@@ -59,20 +67,28 @@ public class NetWorkChangReceiver extends BroadcastReceiver {
                 if (NetworkInfo.State.CONNECTED == info.getState() && info.isAvailable()) {
                     if (info.getType() == ConnectivityManager.TYPE_WIFI || info.getType() == ConnectivityManager.TYPE_MOBILE) {
 
-                        NetStateLisenter netStateLisenter = new NetStateLisenter();
-                        netStateLisenter.connType = type;
-                        netStateLisenter.netState = true;
-                        EventBusUtils.getInstance().post(netStateLisenter);
+                        NetStateEvent netStateEvent = new NetStateEvent();
+                        netStateEvent.connType = type;
+                        netStateEvent.netState = true;
+                        if(mINetStateLisenter != null){
+                            mINetStateLisenter.netStateLisenter(netStateEvent);
+                        }
+//                        EventBusUtils.getInstance().post(netStateEvent);
                         Logger.i(TAG, type + "连接！");
                     }
                 } else {
-                    NetStateLisenter netStateLisenter = new NetStateLisenter();
-                    netStateLisenter.connType = "";
-                    netStateLisenter.netState = false;
-                    EventBusUtils.getInstance().post(netStateLisenter);
+                    NetStateEvent netStateEvent = new NetStateEvent();
+                    netStateEvent.connType = "";
+                    netStateEvent.netState = false;
+                    if(mINetStateLisenter != null){
+                        mINetStateLisenter.netStateLisenter(netStateEvent);
+                    }
+//                    EventBusUtils.getInstance().post(netStateEvent);
                     Logger.i(TAG, type + "断开!");
                 }
             }
         }
     }
 }
+
+

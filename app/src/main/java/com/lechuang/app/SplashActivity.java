@@ -8,7 +8,7 @@ import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 
 import com.lechuang.app.base.BaseActivity;
-import com.lechuang.app.events.NetStateLisenter;
+import com.lechuang.app.events.NetStateEvent;
 import com.lechuang.app.utils.Utils;
 
 
@@ -44,18 +44,17 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initCreateContent() {
         super.initCreateContent();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         setNetReceiver();
-
     }
 
     @Override
@@ -66,18 +65,15 @@ public class SplashActivity extends BaseActivity {
 
 
     /**
-     * 主线程通知网络监听状态
+     * 用于监听网络连接状态
      */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainThreadNetLisenter(NetStateLisenter netStateLisenter){
-        mNetState = netStateLisenter.netState;
+    @Override
+    public void netStateLisenter(NetStateEvent netStateEvent) {
+        super.netStateLisenter(netStateEvent);
         if(mNetState){
             mDelay.postDelayed(mDelayRun,3000);
-            Utils.showToast("您正在使用" + netStateLisenter.connType);
         }else {
-            Utils.showToast("网络连接断开！");
             mDelay.removeCallbacks(mDelayRun);
         }
     }
-
 }

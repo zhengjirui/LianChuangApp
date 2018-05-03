@@ -1,4 +1,4 @@
-package com.lechuang.app.lisenter;
+package com.lechuang.app.lisenters;
 
 /**
  * Created by jinding on 2018/3/10.

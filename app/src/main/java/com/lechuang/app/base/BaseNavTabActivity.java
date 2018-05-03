@@ -1,7 +1,6 @@
 package com.lechuang.app.base;
 
 import android.app.Fragment;
-import android.os.Bundle;
 import android.os.Process;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -11,9 +10,8 @@ import android.widget.Toast;
 
 
 import com.lechuang.app.App;
-import com.lechuang.app.MainActivity;
 import com.lechuang.app.R;
-import com.lechuang.app.lisenter.INavTabLisenter;
+import com.lechuang.app.lisenters.INavTabLisenter;
 import com.lechuang.app.view.NavTabLayout;
 
 import java.util.ArrayList;

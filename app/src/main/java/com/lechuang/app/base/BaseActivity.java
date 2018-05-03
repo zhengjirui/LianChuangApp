@@ -10,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,28 +21,25 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lechuang.app.App;
 import com.lechuang.app.R;
-import com.lechuang.app.events.NetStateLisenter;
+import com.lechuang.app.base.lisenters.IBaseView;
+import com.lechuang.app.events.NetStateEvent;
+import com.lechuang.app.lisenters.INetStateLisenter;
 import com.lechuang.app.receiver.NetWorkChangReceiver;
 import com.lechuang.app.utils.Utils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Rationale;
-import com.yanzhenjie.permission.setting.PermissionSetting;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements INetStateLisenter,IBaseView {
     protected Context mContext;
 
     protected RelativeLayout mHeadLayout;
@@ -69,7 +65,9 @@ public class BaseActivity extends AppCompatActivity {
         mContext = this;
         //管理activity
         App.getInstance().addActivity(this);
-        mBasePresenter = new BasePresenter();
+        mBasePresenter = new BasePresenter(this);
+
+
     }
 
     @Override
@@ -87,10 +85,12 @@ public class BaseActivity extends AppCompatActivity {
                 mBtnBackDrawable.getMinimumHeight());
         addContentView(view, lp);
         mUnbind = ButterKnife.bind(this,view);
+
     }
 
     @Override
     public void setContentView(int layoutResID) {
+        mBasePresenter.setContentView(layoutResID);
         View view = LayoutInflater.from(this).inflate(layoutResID, null);
         setContentView(view);
         //设置加载等待框
@@ -229,12 +229,20 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //实现类需要的时候调用
+//        setNetReceiver();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        //实现类需要的时候调用
+//        removeNetReceiver();
     }
 
     @Override
@@ -249,7 +257,6 @@ public class BaseActivity extends AppCompatActivity {
         if(mUnbind != null){
             mUnbind.unbind();
         }
-
         App.getInstance().removeActivity(this);
     }
 
@@ -311,13 +318,13 @@ public class BaseActivity extends AppCompatActivity {
         return mPremissiomState;
     }
 
-    protected void toast(String message) {
+    public void toast(String message) {
         Utils.showToast(message);
     }
 
     protected void setNetReceiver(){
         if (mNetWorkChangReceiver == null){
-            mNetWorkChangReceiver = new NetWorkChangReceiver();
+            mNetWorkChangReceiver = new NetWorkChangReceiver(this);
         }
 
         IntentFilter filter = new IntentFilter();
@@ -334,4 +341,13 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void netStateLisenter(NetStateEvent netStateEvent) {
+        mNetState = netStateEvent.netState;
+        if(mNetState){
+            Utils.showToast("您正在使用" + netStateEvent.connType);
+        }else {
+            Utils.showToast("网络连接断开！");
+        }
+    }
 }

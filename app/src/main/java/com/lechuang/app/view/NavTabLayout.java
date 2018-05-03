@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lechuang.app.R;
-import com.lechuang.app.lisenter.INavTabLisenter;
+import com.lechuang.app.lisenters.INavTabLisenter;
 import com.lechuang.app.utils.Utils;
 
 import java.util.ArrayList;

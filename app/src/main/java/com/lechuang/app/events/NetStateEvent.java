@@ -6,7 +6,7 @@ package com.lechuang.app.events;
  * @describe:
  */
 
-public class NetStateLisenter {
+public class NetStateEvent {
 
     public boolean netState;//网络的连接状态
 
