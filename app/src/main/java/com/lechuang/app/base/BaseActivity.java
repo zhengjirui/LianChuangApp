@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
     private NetWorkChangReceiver mNetWorkChangReceiver;
 
     private Unbinder mUnbind;
-    private BasePresenter mBasePresenter;
+    protected BasePresenter mBasePresenter;
     protected boolean mNetState = false; //网络的连接状态
 
 
@@ -44,7 +45,11 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
         mContext = this;
         //管理activity
         App.getInstance().addActivity(this);
-        mBasePresenter = new BasePresenter(this);
+        mBasePresenter = onCreatePresenter(savedInstanceState);
+    }
+
+    protected BasePresenter onCreatePresenter(@Nullable Bundle savedInstanceState){
+        return new BasePresenter(this);
     }
 
     @Override

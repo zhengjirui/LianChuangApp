@@ -18,7 +18,4 @@ public interface IBaseView {
      */
     void toast(String message);
 
-    /**
-     * 设置加载等待框
-     */
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LeChuangApp</string>
+    <string name="app_name">@string/app_name_res</string>
 
     <!--网络连接-->
     <string name="net_error_toast">目前处于无网络状态!</string>

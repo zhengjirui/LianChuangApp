@@ -2,6 +2,7 @@ package com.lechuang.app;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,12 +10,6 @@ import android.support.constraint.ConstraintLayout;
 
 import com.lechuang.app.base.BaseActivity;
 import com.lechuang.app.events.NetStateEvent;
-import com.lechuang.app.utils.Utils;
-
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 

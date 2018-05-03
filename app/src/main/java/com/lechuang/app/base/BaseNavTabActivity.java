@@ -1,10 +1,11 @@
 package com.lechuang.app.base;
 
-import android.app.Fragment;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.os.Process;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.lechuang.app.App;
 import com.lechuang.app.R;
 import com.lechuang.app.lisenters.INavTabLisenter;
+import com.lechuang.app.utils.Logger;
 import com.lechuang.app.view.NavTabLayout;
 
 import java.util.ArrayList;
@@ -20,16 +22,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public abstract class BaseNavTabActivity extends BaseActivity implements INavTabLisenter {
-    private final String TAG = "BaseNavTabActivity";
+    private final String TAG = "TAG_BaseNavTabActivity";
 
-    private FrameLayout mFragment;
+    public FrameLayout mFragment;
     private NavTabLayout mNavTabLayout;
     public List<String> itemName = new ArrayList<>();
 
 
     @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(R.layout.activity_base_nav_tab);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_base_nav_tab);
     }
 
     @Override
@@ -54,15 +57,24 @@ public abstract class BaseNavTabActivity extends BaseActivity implements INavTab
     @Override
     public void INavCurrentLisenter(int navCurrent) {
         Log.e(TAG,navCurrent + "");
+        showCurrentFragment(navCurrent);
     }
 
-    protected abstract void initFragments(List<Fragment> fragmentList);
+    /**
+     * 初始化fragment
+     * @param savedInstanceState
+     */
+    protected abstract void initFragments(Bundle savedInstanceState);
 
+    //只是用于显示当前tab，联动显示当前fragment
     public void setCurrentTab(int currentTab){
+        Logger.e(TAG,currentTab + "");
         if(mNavTabLayout != null){
             mNavTabLayout.setTabCurrent(currentTab);
         }
     }
+
+    protected abstract void showCurrentFragment(int currentTab);
 
     /**
      * 双击返回
