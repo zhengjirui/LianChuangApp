@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/tv_desc"
-        android:textColor="@color/miantext"
+        android:textColor="@color/c_app_main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"

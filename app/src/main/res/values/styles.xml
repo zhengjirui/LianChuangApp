@@ -15,7 +15,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="Theme.Adver" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Adver" parent="AppTheme">
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowFullscreen">true</item>
