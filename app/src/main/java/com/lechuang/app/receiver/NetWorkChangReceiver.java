@@ -22,6 +22,8 @@ public class NetWorkChangReceiver extends BroadcastReceiver{
 
     private INetStateLisenter mINetStateLisenter;
 
+    public NetWorkChangReceiver() {
+    }
 
     public NetWorkChangReceiver(INetStateLisenter mINetStateLisenter) {
         this.mINetStateLisenter = mINetStateLisenter;

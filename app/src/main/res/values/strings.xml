@@ -11,6 +11,7 @@
     <string name="loading">加载中,请稍后...</string>
     <string name="search_show">粘贴商品标题搜索优惠券</string>
     <string name="share_show">您目前不是代理,分享暂无积分</string>
+    <string name="app_update_fail">APP更新失败</string>
 
 
     <!--商品分享后台给的分享文案 不包含 "{选择分享渠道后生成淘口令}"  时报的提示-->

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     >
+
+    <include layout="@layout/layout_status_bar" />
 
     <RelativeLayout
         android:id="@+id/layout_base_head"
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        android:background="@color/header_bg"
+        android:background="@color/c_app_main"
         android:orientation="horizontal"
         >
 
@@ -68,4 +71,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

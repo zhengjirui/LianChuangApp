@@ -73,12 +73,12 @@ android {
         //券券街
         quanquanjie {
             applicationId "com.lechuang.quanquanjie"
-            versionCode 103
-            versionName "1.0.3"
+            versionCode 100
+            versionName "1.0.0"
             def appName = "仿券券街"
             def appNamePinyin = "QUANQUANJIE"
             //服务器地址
-            def uri = "http://qqj.1kg.fun/"
+            def uri = "http://juziguniang.lechuangapp.com/"
             //淘宝pid(百川用户pid   非常重要  注意替换)
             def ali_PID = "mm_129981298_0_0"
             //appkey  (百川的appkey 用于客服功能  注意替换)
@@ -183,8 +183,11 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.1.1'
     //    compile 'id.zelory:compressor:1.0.4'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //https://github.com/yanzhenjie/AndPermission  权限
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
+    //banner 开源框架 https://github.com/youth5201314/banner
+    compile 'com.youth.banner:banner:1.4.10'
     //    compile 'com.android.support:design:26.0.0-alpha1'
     //    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     //    compile 'com.github.chrisbanes:PhotoView:2.0.0'

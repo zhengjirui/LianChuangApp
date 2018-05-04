@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.lechuang.app.App;
+import com.lechuang.app.R;
 import com.lechuang.app.base.lisenters.IBaseView;
 import com.lechuang.app.events.NetStateEvent;
 import com.lechuang.app.lisenters.INetStateLisenter;
@@ -134,6 +136,10 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
 
 
     public void toast(String message) {
+        mBasePresenter.toast(message);
+    }
+
+    public void toast(@StringRes int message) {
         mBasePresenter.toast(message);
     }
 

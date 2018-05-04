@@ -3,6 +3,8 @@ package com.lechuang.app.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.lechuang.app.base.Constants;
+
 /**
  * @author: LGH
  * @since: 2018/5/3
@@ -101,6 +103,7 @@ public class SpreUtils {
         SharedPreferences pref = context.getSharedPreferences(PREFERENCE_NAME, 0);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
+        editor.putBoolean(Constants.IS_FIRST_OPEN_APP, true);
         return editor.commit();
     }
 }

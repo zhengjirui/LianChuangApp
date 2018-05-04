@@ -116,6 +116,7 @@ public class App extends Application {
     public void exit() {
         for (Activity activity : activityList) {
             activity.finish();
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 }

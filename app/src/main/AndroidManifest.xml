@@ -165,7 +165,7 @@
             </intent-filter>
         </receiver>
 
-        <!--监听网络状态-->
+        <!-- 监听网络状态 -->
         <receiver android:name=".receiver.NetWorkChangReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
@@ -209,8 +209,8 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustNothing"
             android:theme="@style/Theme.Splash"
+            android:windowSoftInputMode="stateHidden|adjustNothing"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -219,13 +219,31 @@
             </intent-filter>
         </activity>
 
+        <!--首页-->
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
-            >
+            />
 
-        </activity>
+        <!--第一次进入的广告图-->
+        <activity
+            android:name=".view.Adver.FirstIntoAdverActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Adver"
+            android:windowSoftInputMode="stateHidden|adjustNothing"
+            />
+
+        <!--非第一次进入的广告图-->
+        <!--非第一次进入的广告图-->
+        <activity
+            android:name=".view.Adver.NormalIntoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Adver"
+            android:windowSoftInputMode="stateHidden|adjustNothing"
+            />
+
+
     </application>
 
 </manifest>

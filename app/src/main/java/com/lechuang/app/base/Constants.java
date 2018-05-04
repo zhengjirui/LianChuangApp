@@ -7,6 +7,7 @@ import com.lechuang.app.BuildConfig;
  * 常量
  */
 public interface Constants {
+    String IS_FIRST_OPEN_APP = "is_first_open_app";
     int ERROR_NET = 400;
     int END_NET = 100;
     int SUCCESSED =200 ;

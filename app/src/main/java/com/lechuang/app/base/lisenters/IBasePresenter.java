@@ -3,6 +3,7 @@ package com.lechuang.app.base.lisenters;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,12 @@ public interface IBasePresenter {
      * @param message
      */
     void toast(String message);
+
+    /**
+     * 弹出提示，传递资源文件
+     * @param message
+     */
+    void toast(@StringRes int message);
 
     /**
      * 网络的连接监听

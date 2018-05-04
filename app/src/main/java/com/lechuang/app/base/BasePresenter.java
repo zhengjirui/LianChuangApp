@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.lechuang.app.R;
 import com.lechuang.app.base.lisenters.IBasePresenter;
 import com.lechuang.app.base.lisenters.IBaseView;
 import com.lechuang.app.events.NetStateEvent;
+import com.lechuang.app.model.LocalSession;
 import com.lechuang.app.utils.Utils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -45,6 +47,7 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     protected TextView mHeadRightText;
     private Drawable mBtnBackDrawable;
     private Dialog mDialog;
+    protected LocalSession mSession;//用户信息bean
 
     protected boolean mPremissiomState = false;//开启权限状态
     protected boolean mNetState = false; //网络的连接状态
@@ -52,6 +55,7 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     public BasePresenter(V mIBaseView) {
         this.mIBaseView = mIBaseView;
         this.mContext = mIBaseView.getContext();
+        this.mSession = LocalSession.get(mContext);
     }
 
     @Override
@@ -149,6 +153,11 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     @Override
     public void toast(String message) {
+        Utils.showToast(message);
+    }
+
+    @Override
+    public void toast(@StringRes int message) {
         Utils.showToast(message);
     }
 
