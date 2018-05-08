@@ -65,18 +65,15 @@ public class HomeModels {
     private int[] images = {R.mipmap.shouye_juhuasuan, R.mipmap.shouye_taoqianggou
             , R.mipmap.shouye_renqiremao, R.mipmap.shouye_chaozhi, R.mipmap.shouye_jinrixinpin};
     private String[] str = {"聚划算", "淘抢购", "人气热卖", "超值推荐", "今日新品"};
-    private List<HomeDefaultKindBean> homeKindList = new ArrayList<>();
 
     public void getHomeKindData_1() {
         //首页分类数据，固定模式就是写死的
-        if (homeKindList != null) {
-            homeKindList.clear();
-        }
+        HomeDefaultKindBean homeKindList = new HomeDefaultKindBean();
         for (int i = 0; i < images.length; i++) {
-            HomeDefaultKindBean bean = new HomeDefaultKindBean();
+            HomeDefaultKindBean.ListBean bean = new HomeDefaultKindBean.ListBean();
             bean.img = images[i];
             bean.name = str[i];
-            homeKindList.add(bean);
+            homeKindList.tbclassTypeList.add(bean);
         }
         EventBus.getDefault().post(homeKindList);
     }

@@ -235,7 +235,6 @@
             />
 
         <!--非第一次进入的广告图-->
-        <!--非第一次进入的广告图-->
         <activity
             android:name=".view.Adver.NormalIntoActivity"
             android:screenOrientation="portrait"

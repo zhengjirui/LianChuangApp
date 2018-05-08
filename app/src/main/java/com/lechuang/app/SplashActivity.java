@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.view.View;
 
 import com.lechuang.app.base.BaseActivity;
 import com.lechuang.app.base.Constants;

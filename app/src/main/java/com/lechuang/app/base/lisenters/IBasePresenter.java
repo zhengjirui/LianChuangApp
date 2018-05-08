@@ -7,8 +7,11 @@ import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import com.lechuang.app.events.NetStateEvent;
+import com.lechuang.app.lisenters.ISmartRefreshLisenter;
 
 /**
  * @author: LGH
@@ -16,7 +19,7 @@ import com.lechuang.app.events.NetStateEvent;
  * @describe:
  */
 
-public interface IBasePresenter {
+public interface IBasePresenter extends ISmartRefreshLisenter{
 
 
     /**
@@ -25,6 +28,13 @@ public interface IBasePresenter {
 
     void onCreate(Bundle savedInstanceState);
 
+
+    /**
+     * 用于给fragment添加根布局使用
+     * @param scrollContentView    跟布局的内容view
+     * @return
+     */
+    void addLayoutView(LayoutInflater inflater, FrameLayout scrollContentView, Bundle savedInstanceState );
     /**
      * fragment的生命周期
      * @param inflater
@@ -38,7 +48,15 @@ public interface IBasePresenter {
 
     void setContentView(View view);
 
-    View setContentView(@LayoutRes int view);
+    View setContentView(@LayoutRes int layoutResID);
+    /**
+     * 为activity添加是否带刷新的layout，
+     * 如果activity中嵌套fragment带有刷新功能，addRefresh可以设置为false。因为fragment有添加，这里避免过度绘制布局
+     * @param layoutResID
+     * @param addRefresh
+     * @return
+     */
+    View setContentView(@LayoutRes int layoutResID,boolean addRefresh);
 
     void onResume();
 
@@ -49,6 +67,59 @@ public interface IBasePresenter {
     void onStop();
 
     void onDestroy();
+
+    /**
+     * 设置是否可以下拉刷新
+     * @param enableRefresh
+     */
+    void setEnableRefresh(boolean enableRefresh);
+
+    /**
+     * 设置是否可以上拉加载更多
+     * @param enableLoadMore
+     */
+    void setEnableLoadMore(boolean enableLoadMore);
+
+
+    /**
+     * 下拉刷新
+     */
+    void finishRefresh();
+
+    /**
+     * 上拉加载
+     */
+    void finishLoadMore();
+
+    /**
+     * 设置下拉刷新延迟
+     * @param delayTime
+     */
+    void finishRefresh(int  delayTime);
+
+    /**
+     * 设置上拉加载延迟
+     * @param delayTime
+     */
+    void finishLoadMore(int delayTime);
+
+    /**
+     * 刷新失败
+     * @param refreshState
+     */
+    void finishRefresh(boolean refreshState);
+
+    /**
+     * 刷新成功
+     * @param refreshState
+     */
+    void finishLoadMore(boolean refreshState);
+
+    /**
+     * 上拉加载没有更多数据
+     */
+    void finishLoadMoreWithNoMoreData();
+
 
 
     /**

@@ -13,22 +13,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.lechuang.app.R;
 import com.lechuang.app.base.lisenters.IBasePresenter;
 import com.lechuang.app.base.lisenters.IBaseView;
 import com.lechuang.app.events.NetStateEvent;
+import com.lechuang.app.lisenters.ISmartRefreshLisenter;
 import com.lechuang.app.model.LocalSession;
 import com.lechuang.app.utils.Utils;
+import com.lechuang.app.view.TransChangeScrollView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author: LGH
@@ -51,6 +62,14 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     protected boolean mPremissiomState = false;//开启权限状态
     protected boolean mNetState = false; //网络的连接状态
+    protected View mLayoutStatus;//头部添加的沉浸式状态栏
+    protected SmartRefreshLayout mSmartRefresh;//总体的刷新空间
+    protected FrameLayout mScrollContent;//view装在的内容
+    private ClassicsHeader mRefreshHeader;//头部刷新的控件
+    private ClassicsFooter mRefreshFooter;//底部加载的控件
+    private ISmartRefreshLisenter mISmartRefreshLisenter;
+    public Unbinder mUnbinder;
+
 
     public BasePresenter(V mIBaseView) {
         this.mIBaseView = mIBaseView;
@@ -64,9 +83,31 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public void addLayoutView(LayoutInflater inflater,FrameLayout scrollContentView, Bundle savedInstanceState) {
 
-        return null;
+        initData();
+    }
+
+    /**
+     * 在fragment里面初始化一些内容
+     */
+    private void initData() {
+        setOnRefreshLisenter();
+        setEnableRefresh(false);
+        setEnableLoadMore(false);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View rootGlobalView =  inflater.inflate(R.layout.layout_global_view,null);
+        mLayoutStatus = rootGlobalView.findViewById(R.id.layout_status);
+        mSmartRefresh = rootGlobalView.findViewById(R.id.smart_refresh);
+        mScrollContent = rootGlobalView.findViewById(R.id.scroll_content_view);
+        mRefreshHeader = rootGlobalView.findViewById(R.id.refresh_header);
+        mRefreshFooter = rootGlobalView.findViewById(R.id.refresh_footer);
+        addLayoutView(inflater, mScrollContent,savedInstanceState);
+        mUnbinder = ButterKnife.bind(this, mScrollContent);
+        return rootGlobalView;
     }
 
     @Override
@@ -89,8 +130,21 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     @Override
     public View setContentView(int layoutResID) {
-        View view = LayoutInflater.from(mIBaseView.getContext()).inflate(layoutResID, null);
+        View view = LayoutInflater.from(mContext).inflate(layoutResID,mScrollContent);
         return view;
+    }
+
+    @Override
+    public View setContentView(int layoutResID,boolean addRefresh) {
+        View rootGlobalView =  LayoutInflater.from(mContext).inflate(R.layout.layout_global_view,null);
+        mLayoutStatus = rootGlobalView.findViewById(R.id.layout_status);
+        mSmartRefresh = rootGlobalView.findViewById(R.id.smart_refresh);
+        mScrollContent = rootGlobalView.findViewById(R.id.scroll_content_view);
+        mRefreshHeader = rootGlobalView.findViewById(R.id.refresh_header);
+        mRefreshFooter = rootGlobalView.findViewById(R.id.refresh_footer);
+        setContentView(layoutResID);
+        initData();
+        return rootGlobalView;
     }
 
     @Override
@@ -115,14 +169,101 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     @Override
     public void onDestroy() {
-
+        if(mUnbinder != null){
+            mUnbinder.unbind();
+        }
     }
 
     @Override
     public void initCreateContent() {
+    }
+
+    @Override
+    public void setEnableRefresh(boolean enableRefresh) {
+        mSmartRefresh.setEnableRefresh(enableRefresh);
+    }
+
+    private void setOnRefreshLisenter(){
+        if(mSmartRefresh != null){
+            setOnSmartRefreshLisenter(this);
+            mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    onRefreshListener();
+                }
+            });
+            mSmartRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                    onLoadMoreListener();
+                }
+            });
+        }
+    }
+
+    /**
+     * 设置加载刷新的监听。在initCreateContent已经设置，也可以在子类中重新设置（建议不要重写设置）
+     * @param iSmartRefreshLisenter
+     */
+    public void setOnSmartRefreshLisenter(ISmartRefreshLisenter iSmartRefreshLisenter){
+        this.mISmartRefreshLisenter = iSmartRefreshLisenter;
+    }
+
+    /**
+     * 下拉刷新监听
+     */
+    @Override
+    public void onRefreshListener() {
 
     }
 
+    /**
+     * 上拉加载监听
+     */
+    @Override
+    public void onLoadMoreListener() {
+
+    }
+
+    @Override
+    public void setEnableLoadMore(boolean enableLoadMore) {
+        mSmartRefresh.setEnableLoadMore(enableLoadMore);
+    }
+
+    @Override
+    public void finishRefresh() {
+        finishRefresh(0);
+    }
+
+    @Override
+    public void finishLoadMore() {
+        finishLoadMore(0);
+    }
+
+    @Override
+    public void finishRefresh(int delayTime) {
+        mSmartRefresh.finishRefresh(delayTime);
+    }
+
+    @Override
+    public void finishLoadMore(int delayTime) {
+        mSmartRefresh.finishLoadMore(delayTime);
+    }
+
+    @Override
+    public void finishRefresh(boolean refreshState) {
+        mSmartRefresh.finishRefresh(refreshState);
+    }
+
+    @Override
+    public void finishLoadMore(boolean refreshState) {
+        mSmartRefresh.finishLoadMore(refreshState);
+    }
+
+    @Override
+    public void finishLoadMoreWithNoMoreData() {
+        mSmartRefresh.finishLoadMoreWithNoMoreData();
+    }
 
     /**
      * 兼容Android 8.0权限申请

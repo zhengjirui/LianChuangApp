@@ -75,6 +75,7 @@ public class NetWorkChangReceiver extends BroadcastReceiver{
                         if(mINetStateLisenter != null){
                             mINetStateLisenter.netStateLisenter(netStateEvent);
                         }
+//                        EventBusUtils.getInstance().post(netStateEvent);
                         Logger.i(TAG, type + "连接！");
                     }
                 } else {
@@ -84,6 +85,7 @@ public class NetWorkChangReceiver extends BroadcastReceiver{
                     if(mINetStateLisenter != null){
                         mINetStateLisenter.netStateLisenter(netStateEvent);
                     }
+//                    EventBusUtils.getInstance().post(netStateEvent);
                     Logger.i(TAG, type + "断开!");
                 }
             }

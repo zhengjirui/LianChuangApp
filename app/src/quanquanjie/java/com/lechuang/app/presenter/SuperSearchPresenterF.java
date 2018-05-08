@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import com.lechuang.app.R;
 import com.lechuang.app.base.BasePresenter;
@@ -23,10 +25,10 @@ public class SuperSearchPresenterF extends BasePresenter {
         super(mIBaseView);
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_super_search,null);
-        return view;
+    public void addLayoutView(LayoutInflater inflater, FrameLayout scrollContentView, Bundle savedInstanceState) {
+        super.addLayoutView(inflater, scrollContentView, savedInstanceState);
+        inflater.inflate(R.layout.fragment_super_search,scrollContentView);
     }
 }

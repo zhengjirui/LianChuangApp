@@ -68,7 +68,6 @@ public class NormalIntoActivity extends BaseActivity {
     @Override
     public void initCreateContent() {
         super.initCreateContent();
-
         getAdvertisementTime(mTvTime);
         handler.post(t);
         AdvertisementBean.AdvertisingImgBean adverBean = (AdvertisementBean.AdvertisingImgBean) getIntent().getSerializableExtra("adverBean");

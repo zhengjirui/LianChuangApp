@@ -71,6 +71,14 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
         initCreateContent();
     }
 
+    public void setContentView(int layoutResID,boolean addRefresh) {
+        View view = mBasePresenter.setContentView(layoutResID,addRefresh);
+        setContentView(view);
+        //初始化数据
+        initCreateContent();
+    }
+
+
 
     /**
      * 初始化数据

@@ -38,10 +38,15 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
         return mBasePresenter.onCreateView(inflater, container, savedInstanceState);
     }
 
+    public void initCreateContent(){
+        mBasePresenter.initCreateContent();
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         mBasePresenter.onStart();
+        initCreateContent();
     }
 
     @Override

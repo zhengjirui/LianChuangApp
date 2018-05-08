@@ -57,6 +57,7 @@ public class HomeKindBean extends BaseEventBean{
         public String id;
         //图片
         public String img;
+        public int imgDrawable;
         //淘宝类目名
         public String name;
         //淘宝父类目ID
