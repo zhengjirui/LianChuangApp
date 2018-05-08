@@ -58,8 +58,10 @@ public interface QUrl {
     String advertisementInfo="showAdviertisement/advertisingImg";
     //过夜单
     String overnightBill="indexShow/OvernightBill";
+    //滚动文字爆料
+    String gunDongText="/indexShow/homePageScrollBar";
     //滚动文字商品
-    String gunDongText="indexShow/daShu_ScrollBar";
+    String gunDongTextProduct="indexShow/daShu_ScrollBar";
     //今日爆款
     String homeTodayProduct = "indexShow/dailyRob";
     // 今日爆款
