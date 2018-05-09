@@ -219,14 +219,14 @@
             </intent-filter>
         </activity>
 
-        <!--首页-->
+        <!-- 首页 -->
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
             />
 
-        <!--第一次进入的广告图-->
+        <!-- 第一次进入的广告图 -->
         <activity
             android:name=".view.Adver.FirstIntoAdverActivity"
             android:screenOrientation="portrait"
@@ -234,15 +234,15 @@
             android:windowSoftInputMode="stateHidden|adjustNothing"
             />
 
-        <!--非第一次进入的广告图-->
+        <!-- 非第一次进入的广告图 -->
         <activity
             android:name=".view.Adver.NormalIntoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Adver"
             android:windowSoftInputMode="stateHidden|adjustNothing"
             />
-
-
+        <activity android:name=".view.login.LoginActivity">
+        </activity>
     </application>
 
 </manifest>

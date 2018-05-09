@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.lechuang.app.base.BaseFragment;
 import com.lechuang.app.base.BasePresenter;
-import com.lechuang.app.presenter.HomePresenterF;
+import com.lechuang.app.presenter.fragment.HomePresenterF;
 
 /**
  * @author: LGH

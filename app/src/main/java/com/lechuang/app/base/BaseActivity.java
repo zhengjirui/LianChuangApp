@@ -50,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
         mBasePresenter = onCreatePresenter(savedInstanceState);
     }
 
+    //没有presenter可以不用重写该方法
     protected BasePresenter onCreatePresenter(@Nullable Bundle savedInstanceState){
         return new BasePresenter(this);
     }

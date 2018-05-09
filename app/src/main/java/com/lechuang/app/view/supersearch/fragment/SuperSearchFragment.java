@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.lechuang.app.base.BaseFragment;
 import com.lechuang.app.base.BasePresenter;
-import com.lechuang.app.presenter.SuperSearchPresenterF;
+import com.lechuang.app.presenter.fragment.SuperSearchPresenterF;
 
 /**
  * @author: LGH
