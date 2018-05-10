@@ -75,10 +75,10 @@ android {
             applicationId "com.lechuang.quanquanjie"
             versionCode 100
             versionName "1.0.0"
-            def appName = "仿券券街"
+            def appName = "仿小猫"
             def appNamePinyin = "QUANQUANJIE"
             //服务器地址
-            def uri = "http://juziguniang.lechuangapp.com/"
+            def uri = "http://87946938.mulanhuitao.com/"
             //淘宝pid(百川用户pid   非常重要  注意替换)
             def ali_PID = "mm_129981298_0_0"
             //appkey  (百川的appkey 用于客服功能  注意替换)
@@ -188,7 +188,7 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
     //banner 开源框架 https://github.com/youth5201314/banner
     compile 'com.youth.banner:banner:1.4.10'
-    //    compile 'com.android.support:design:26.0.0-alpha1'
+        compile 'com.android.support:design:26.0.0-alpha1'
     //    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     //    compile 'com.github.chrisbanes:PhotoView:2.0.0'
     //    compile 'com.jude:rollviewpager:1.4.5'
@@ -199,4 +199,5 @@ dependencies {
     implementation files('libs/umeng-analytics-7.4.0.jar')
     implementation files('libs/umeng-common-1.4.0.jar')
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }

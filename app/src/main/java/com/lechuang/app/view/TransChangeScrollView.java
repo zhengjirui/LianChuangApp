@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 
+import com.lechuang.app.lisenters.IOnScrollChangedListener;
 import com.lechuang.app.lisenters.ITransChangeLisenter;
 
 /**
@@ -16,6 +17,7 @@ public class TransChangeScrollView extends ScrollView implements ITransChangeLis
     private ITransChangeLisenter mITransChangeLisenter;
     private View mTransChangeView;
     private float mHeightPixels;
+    private IOnScrollChangedListener onScrollChangedListener;
 
     public TransChangeScrollView(Context context) {
         this(context,null);
@@ -47,8 +49,13 @@ public class TransChangeScrollView extends ScrollView implements ITransChangeLis
         this.mTransChangeView = transChangeView;
     }
 
+    public void setOnScrollChangedListener(IOnScrollChangedListener onScrollChangedListener) {
+        this.onScrollChangedListener = onScrollChangedListener;
+    }
+
     @Override
     public void onScrollChangeLisenter(int l, int t, int oldl, int oldt) {
+        onScrollChangedListener.onScrollChanged(l, t, oldl, oldt);
         if (mTransChangeView != null) {
             // alpha = 滑出去的高度/(screenHeight/3);
 
@@ -59,4 +66,5 @@ public class TransChangeScrollView extends ScrollView implements ITransChangeLis
             mTransChangeView.setAlpha(alpha);
         }
     }
+
 }

@@ -35,7 +35,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return mBasePresenter.onCreateView(inflater, container, savedInstanceState);
+        View view = mBasePresenter.onCreateView(inflater, container, savedInstanceState);
+        initCreateContent();
+        return view;
     }
 
     public void initCreateContent(){
@@ -46,7 +48,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     public void onStart() {
         super.onStart();
         mBasePresenter.onStart();
-        initCreateContent();
+
     }
 
     @Override

@@ -12,4 +12,15 @@
         <attr name="navBgColor" format="color">1</attr><!--#FFD3D3D3-->
         <attr name="navTabCurrent" format="integer">2</attr>
     </declare-styleable>
+
+
+    <!-- 圆形图片样式-->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+    <!--自动滚动文字样式-->
+    <declare-styleable name="auto3d">
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
 </resources>

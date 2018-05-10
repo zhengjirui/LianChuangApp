@@ -1,4 +1,4 @@
-package com.lechuang.app.events;
+package com.lechuang.app.model.data;
 
 import com.lechuang.app.model.bean.GetBean;
 import com.lechuang.app.model.bean.HomeBannerBean;
@@ -16,7 +16,7 @@ import com.lechuang.app.model.bean.HomeTodayProductBean;
  * @describe:
  */
 
-public class HomeDataEvent {
+public class HomeData {
 
     //获取首页轮播图数据
     public HomeBannerBean mHomeBannerBean;
