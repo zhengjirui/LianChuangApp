@@ -1,6 +1,7 @@
 package com.lechuang.app.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
@@ -59,11 +60,21 @@ public class TransChangeScrollView extends ScrollView implements ITransChangeLis
         if (mTransChangeView != null) {
             // alpha = 滑出去的高度/(screenHeight/3);
 
-            float scrollY = getScrollY();//该值 大于0
-            float alpha = scrollY / (mHeightPixels / 3);// 0~1  透明度是1~0
-//            float alpha = 1 - scrollY / (mHeightPixels / 3);// 0~1  透明度是1~0
-            //这里选择的screenHeight的1/3 是alpha改变的速率 （根据你的需要你可以自己定义）
-            mTransChangeView.setAlpha(alpha);
+//            float scrollY = getScrollY();//该值 大于0
+//            float alpha = scrollY / (mHeightPixels / 3);// 0~1  透明度是1~0
+////            float alpha = 1 - scrollY / (mHeightPixels / 3);// 0~1  透明度是1~0
+//            //这里选择的screenHeight的1/3 是alpha改变的速率 （根据你的需要你可以自己定义）
+//            mTransChangeView.setAlpha(alpha);
+            float scrollY = mHeightPixels / 4;//设置在某一滑动范围内实行渐变
+            if (t <= 0) {
+                mTransChangeView.setBackgroundColor(Color.argb(0, 255, 0, 0));
+            } else if (t > 0 && t <= scrollY) {
+                float scale = t / scrollY;// 0~1  透明度是1~0
+                float alpha = (255 * scale);
+                mTransChangeView.setBackgroundColor(Color.argb((int) alpha, 255, 0, 0));
+            } else {
+                mTransChangeView.setBackgroundColor(Color.argb( 255, 255, 0, 0));
+            }
         }
     }
 

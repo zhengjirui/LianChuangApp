@@ -16,11 +16,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.lechuang.app.App;
-import com.lechuang.app.R;
 import com.lechuang.app.base.lisenters.IBaseView;
 import com.lechuang.app.events.NetStateEvent;
 import com.lechuang.app.lisenters.INetStateLisenter;
 import com.lechuang.app.receiver.NetWorkChangReceiver;
+import com.lechuang.app.utils.StatusBarUtil;
 import com.lechuang.app.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,6 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         mBasePresenter.setContentView(view);
         addContentView(view, lp);
+        StatusBarUtil.setTranslucentForImageViewInFragment(BaseActivity.this, 0,null);
         mUnbind = ButterKnife.bind(this, view);
     }
 

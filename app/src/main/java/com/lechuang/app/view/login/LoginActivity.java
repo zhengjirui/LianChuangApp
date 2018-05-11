@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.lechuang.app.R;
 import com.lechuang.app.base.BaseActivity;
 import com.lechuang.app.base.BasePresenter;
-import com.lechuang.app.presenter.activity.LoginPresenterA;
+import com.lechuang.app.presenter.activity.LoginPresenter;
 
 public class LoginActivity extends BaseActivity {
 
@@ -18,6 +18,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected BasePresenter onCreatePresenter(@Nullable Bundle savedInstanceState) {
-        return new LoginPresenterA(this);
+        return new LoginPresenter(this);
     }
 }

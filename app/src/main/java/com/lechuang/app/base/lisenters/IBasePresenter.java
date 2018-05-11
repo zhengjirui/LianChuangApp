@@ -44,6 +44,12 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
      */
     View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState);
 
+    /**
+     * fragment的懒加载回调
+     * @param isVisibleToUser
+     */
+    void setUserVisibleHint(boolean isVisibleToUser);
+
     void onStart();
 
     void setContentView(View view);
@@ -59,6 +65,12 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
     View setContentView(@LayoutRes int layoutResID,boolean addRefresh);
 
     void onResume();
+
+    /**
+     * fragment的获取焦点
+     * @param isVisibleToUser
+     */
+    void onResume(boolean isVisibleToUser);
 
     void onRestart();
 
@@ -119,8 +131,6 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
      * 上拉加载没有更多数据
      */
     void finishLoadMoreWithNoMoreData();
-
-
 
     /**
      * 自定义回调方法的绑定

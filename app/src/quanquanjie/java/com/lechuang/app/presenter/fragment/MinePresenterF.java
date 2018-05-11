@@ -1,12 +1,8 @@
 package com.lechuang.app.presenter.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ScrollView;
 
 import com.lechuang.app.R;
 import com.lechuang.app.base.BasePresenter;

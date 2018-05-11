@@ -39,8 +39,6 @@ public abstract class BaseNavTabActivity extends BaseActivity implements INavTab
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_nav_tab);
-        StatusBarUtil.setTranslucentForImageViewInFragment(BaseNavTabActivity.this, 0,null);
-
     }
 
     @Override

@@ -52,9 +52,15 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        mBasePresenter.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        mBasePresenter.onResume();
+        mBasePresenter.onResume(getUserVisibleHint());
     }
 
     @Override

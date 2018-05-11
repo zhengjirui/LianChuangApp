@@ -9,9 +9,9 @@ import com.lechuang.app.base.lisenters.IBaseView;
  * @describe:
  */
 
-public class LoginPresenterA extends BasePresenter {
+public class LoginPresenter extends BasePresenter {
 
-    public LoginPresenterA(IBaseView mIBaseView) {
+    public LoginPresenter(IBaseView mIBaseView) {
         super(mIBaseView);
     }
 

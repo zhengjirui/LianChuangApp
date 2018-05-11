@@ -2,9 +2,11 @@ package com.lechuang.app.presenter.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -35,7 +37,6 @@ import com.lechuang.app.model.bean.HomeTipoffListBean;
 import com.lechuang.app.model.bean.HomeTodayProductBean;
 import com.lechuang.app.presenter.activity.adapter.HomeKindAdapter;
 import com.lechuang.app.presenter.activity.adapter.HomeProductAdapter;
-import com.lechuang.app.utils.Logger;
 import com.lechuang.app.view.AutoTextView;
 import com.lechuang.app.view.TransChangeScrollView;
 import com.youth.banner.Banner;
@@ -84,6 +85,8 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
     RecyclerView mRecycleHomeProduct;
     @BindView(R.id.tablayout_home_top)
     TabLayout mTablayoutHomeTop;
+    @BindView(R.id.viewpager_home_product)
+    ViewPager mViewPagerHomeProduct;
 
 
     HomeModels mHomeModels;
@@ -110,7 +113,7 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
     @Override
     public void initCreateContent() {
         super.initCreateContent();
-        mHeader.setAlpha(0);
+        mHeader.setBackgroundColor(Color.argb(0, 255, 0, 0));
         mRefreshView.setTransparentChange(mHeader);
         mRefreshView.setOnScrollChangedListener(this);
 
@@ -324,6 +327,32 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
     private void updataProductData(HomeLastProgramBean homeLastProgramBean) {
         List<HomeLastProgramBean.ListBean> productList = homeLastProgramBean.productList;
         mHomeProductAdapter.setNewData(productList);
+    }
+
+    private void initTablayoutData(){
+
+        //上面的tab
+        //tab可滚动
+        mTablayoutHomeTop.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //tab居中显示
+        mTablayoutHomeTop.setTabGravity(TabLayout.GRAVITY_CENTER);
+        //tab的字体选择器,默认黑色,选择时红色
+        mTablayoutHomeTop.setTabTextColors(R.color.c_app_main_text, R.color.main);
+        //tab的下划线颜色,默认是粉红色
+        mTablayoutHomeTop.setSelectedTabIndicatorColor(mContext.getResources().getColor(R.color.main));
+
+        //下面的tab
+        //tab可滚动
+        mTablayoutHomeBellow.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //tab居中显示
+        mTablayoutHomeBellow.setTabGravity(TabLayout.GRAVITY_CENTER);
+        //tab的字体选择器,默认黑色,选择时红色
+        mTablayoutHomeBellow.setTabTextColors(R.color.c_app_main_text, R.color.main);
+        //tab的下划线颜色,默认是粉红色
+        mTablayoutHomeBellow.setSelectedTabIndicatorColor(mContext.getResources().getColor(R.color.main));
+//        mContext.get
+        mTablayoutHomeTop.setupWithViewPager(mViewPagerHomeProduct);
+//        mTablayoutHomeTop.setScrollPosition();
     }
 
     @Override

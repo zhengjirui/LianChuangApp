@@ -51,12 +51,6 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     protected V mIBaseView;
     protected Context mContext;
-    protected RelativeLayout mHeadLayout;
-    protected Button mBtnLeft;
-    protected Button mBtnRight;
-    protected TextView mTitle;
-    protected TextView mHeadRightText;
-    private Drawable mBtnBackDrawable;
     private Dialog mDialog;
     protected LocalSession mSession;//用户信息bean
 
@@ -68,6 +62,8 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     private ClassicsHeader mRefreshHeader;//头部刷新的控件
     private ClassicsFooter mRefreshFooter;//底部加载的控件
     private ISmartRefreshLisenter mISmartRefreshLisenter;
+    private boolean mInited = false;//是否已经初始化
+    private boolean mIsVisibleToUser;//是否显示给用户
     public Unbinder mUnbinder;
 
 
@@ -80,21 +76,6 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-    }
-
-    @Override
-    public void addLayoutView(LayoutInflater inflater,FrameLayout scrollContentView, Bundle savedInstanceState) {
-
-        initData();
-    }
-
-    /**
-     * 在fragment里面初始化一些内容
-     */
-    private void initData() {
-        setOnRefreshLisenter();
-        setEnableRefresh(false);
-        setEnableLoadMore(false);
     }
 
     @Override
@@ -111,21 +92,32 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.mIsVisibleToUser = isVisibleToUser;
+    }
+
+    @Override
+    public void addLayoutView(LayoutInflater inflater,FrameLayout scrollContentView, Bundle savedInstanceState) {
+        initData();
+    }
+
+    /**
+     * 在fragment里面初始化一些内容
+     */
+    private void initData() {
+        setOnRefreshLisenter();
+        setEnableRefresh(false);
+        setEnableLoadMore(false);
+    }
+
+    @Override
     public void onStart() {
 
     }
 
     @Override
     public void setContentView(View view) {
-        // 初始化公共头部
-        mHeadLayout = (RelativeLayout) view.findViewById(R.id.layout_base_head);
-        mHeadRightText = (TextView) view.findViewById(R.id.text_right);
-        mBtnLeft = (Button) view.findViewById(R.id.btn_left);
-        mBtnRight = (Button) view.findViewById(R.id.btn_right);
-        mTitle = (TextView) view.findViewById(R.id.tv_title);
-        mBtnBackDrawable = mContext.getResources().getDrawable(R.drawable.header_back_icon);
-        mBtnBackDrawable.setBounds(0, 0, mBtnBackDrawable.getMinimumWidth(),
-                mBtnBackDrawable.getMinimumHeight());
+        //没有实现任何功能
     }
 
     @Override
@@ -136,15 +128,25 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     @Override
     public View setContentView(int layoutResID,boolean addRefresh) {
-        View rootGlobalView =  LayoutInflater.from(mContext).inflate(R.layout.layout_global_view,null);
-        mLayoutStatus = rootGlobalView.findViewById(R.id.layout_status);
-        mSmartRefresh = rootGlobalView.findViewById(R.id.smart_refresh);
-        mScrollContent = rootGlobalView.findViewById(R.id.scroll_content_view);
-        mRefreshHeader = rootGlobalView.findViewById(R.id.refresh_header);
-        mRefreshFooter = rootGlobalView.findViewById(R.id.refresh_footer);
-        setContentView(layoutResID);
-        initData();
-        return rootGlobalView;
+        if(addRefresh){
+            View rootGlobalView =  LayoutInflater.from(mContext).inflate(R.layout.layout_global_view,null);
+            mLayoutStatus = rootGlobalView.findViewById(R.id.layout_status);
+            mSmartRefresh = rootGlobalView.findViewById(R.id.smart_refresh);
+            mScrollContent = rootGlobalView.findViewById(R.id.scroll_content_view);
+            mRefreshHeader = rootGlobalView.findViewById(R.id.refresh_header);
+            mRefreshFooter = rootGlobalView.findViewById(R.id.refresh_footer);
+            setContentView(layoutResID);
+            initData();
+            return rootGlobalView;
+        }else {
+            return setContentView(layoutResID);
+        }
+
+    }
+
+    @Override
+    public void onResume(boolean isVisibleToUser) {
+        this.mIsVisibleToUser = isVisibleToUser;
     }
 
     @Override
@@ -305,106 +307,6 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     @Override
     public void netStateLisenter(NetStateEvent netStateEvent) {
 
-    }
-
-    /**
-     * 设置头部是否可见
-     *
-     * @param visibility
-     */
-    public void setHeadVisibility(int visibility) {
-        mHeadLayout.setVisibility(visibility);
-    }
-
-    /**
-     * 设置左边是否可见
-     *
-     * @param visibility
-     */
-    public void setHeadLeftButtonVisibility(int visibility) {
-        mBtnLeft.setVisibility(visibility);
-    }
-
-    /**
-     * 设置右边是否可见
-     *
-     * @param visibility
-     */
-    public void setHeadRightButtonVisibility(int visibility) {
-        mBtnRight.setVisibility(visibility);
-    }
-
-    /**
-     * 设置标题
-     */
-    public void setTitle(int titleId) {
-        setTitle(mContext.getString(titleId), false);
-    }
-
-    /**
-     * 设置标题
-     */
-    public void setTitle(int titleId, boolean flag) {
-        setTitle(mContext.getString(titleId), flag);
-    }
-
-    /**
-     * 设置标题
-     */
-    public void setTitle(String title) {
-        setTitle(title, false);
-    }
-
-    /**
-     * 设置标题
-     *
-     * @param title
-     */
-    public void setTitle(String title, boolean flag) {
-        mTitle.setText(title);
-        if (flag) {
-            mBtnLeft.setCompoundDrawables(null, null, null, null);
-        } else {
-            mBtnLeft.setCompoundDrawables(mBtnBackDrawable, null, null, null);
-        }
-    }
-
-    /**
-     * 点击左按钮
-     */
-    public void onHeadLeftButtonClick(View v) {
-//        finish();  todo
-    }
-
-    /**
-     * 点击右按钮
-     */
-    public void onHeadRightButtonClick(View v) {
-
-    }
-
-    public Button getHeadLeftButton() {
-        return mBtnLeft;
-    }
-
-    public void setHeadLeftButton(Button leftButton) {
-        this.mBtnLeft = leftButton;
-    }
-
-    public Button getHeadRightButton() {
-        return mBtnRight;
-    }
-
-    public void setHeadRightButton(Button rightButton) {
-        this.mBtnRight = rightButton;
-    }
-
-    public Drawable getHeadBackButtonDrawable() {
-        return mBtnBackDrawable;
-    }
-
-    public void setBackButtonDrawable(Drawable backButtonDrawable) {
-        this.mBtnBackDrawable = backButtonDrawable;
     }
 
     private void setLoadView() {
