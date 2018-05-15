@@ -243,6 +243,12 @@
             />
         <activity android:name=".view.login.LoginActivity">
         </activity>
+        <activity android:name=".view.loadwebview.LoadWebViewActivity">
+        </activity>
+        <activity android:name=".view.productdetails.ProductDetailsActivity">
+        </activity>
+        <activity android:name=".view.productdetails.ProductDetailsShareActivity">
+        </activity>
     </application>
 
 </manifest>

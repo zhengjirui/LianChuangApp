@@ -1,11 +1,13 @@
 package com.lechuang.app.net.netApi;
 
 import com.lechuang.app.model.bean.AdvertisementBean;
+import com.lechuang.app.model.bean.ClassInfoBean;
 import com.lechuang.app.model.bean.GetHostUrlBean;
 import com.lechuang.app.model.bean.LiveProductInfoBean;
 import com.lechuang.app.model.bean.LoadingImgBean;
 import com.lechuang.app.model.bean.OwnCheckVersionBean;
 import com.lechuang.app.model.bean.ResultBean;
+import com.lechuang.app.model.bean.TaobaoUrlBean;
 import com.lechuang.app.net.QUrl;
 
 import java.util.HashMap;
@@ -130,12 +132,12 @@ public interface CommenApi {
 //    @GET(QUrl.getHelpInfo)
 //    Observable<ResultBean<KefuInfoBean>> getHelpInfo();
 //
-//    //获取淘口令和转连接的方法
-//    @FormUrlEncoded
-//    @POST(QUrl.tb_privilegeUrl)
-//    Observable<ResultBean<TaobaoUrlBean>> tb_privilegeUrl(
-//            @Field("alipayItemId") String phone, @Field("alipayCouponId") String taobaoNumber,
-//            @Field("img") String img, @Field("name") String name);
+    //获取淘口令和转连接的方法
+    @FormUrlEncoded
+    @POST(QUrl.tb_privilegeUrl)
+    Observable<ResultBean<TaobaoUrlBean>> tb_privilegeUrl(
+            @Field("alipayItemId") String phone, @Field("alipayCouponId") String taobaoNumber,
+            @Field("img") String img, @Field("name") String name);
 //
     //进入app时的广告图
     @POST(QUrl.advertisementInfo)
@@ -169,9 +171,9 @@ public interface CommenApi {
 //    @POST(QUrl.getVerifiCode)
 //    Observable<ResultBean<String>> getVerifiCode(@Field("verifiCode") String verifiCode);
 //
-//    //条目分类
-//    @GET(QUrl.getNextTbClass)
-//    Observable<ResultBean<ClassInfoBean>> getNextTabClass();
+    //条目分类
+    @GET(QUrl.getNextTbClass)
+    Observable<ResultBean<ClassInfoBean>> getNextTabClass();
 //
 //    //分享app图片接口
 //    @POST(QUrl.getShareImages)

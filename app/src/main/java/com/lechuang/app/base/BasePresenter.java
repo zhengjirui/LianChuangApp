@@ -1,5 +1,6 @@
 package com.lechuang.app.base;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,8 +64,10 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     private ClassicsHeader mRefreshHeader;//头部刷新的控件
     private ClassicsFooter mRefreshFooter;//底部加载的控件
     private ISmartRefreshLisenter mISmartRefreshLisenter;
-    private boolean mInited = false;//是否已经初始化
-    private boolean mIsVisibleToUser;//是否显示给用户
+    protected boolean mInited = false;//是否已经初始化
+    protected boolean mIsVisibleToUser = false;//是否显示给用户
+    protected Bundle mBundleF;//fragment之间的传值
+    private FragmentManager mChildFragmentManager;
     public Unbinder mUnbinder;
 
 
@@ -71,6 +75,7 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
         this.mIBaseView = mIBaseView;
         this.mContext = mIBaseView.getContext();
         this.mSession = LocalSession.get(mContext);
+        setLoadView();
     }
 
     @Override
@@ -91,10 +96,22 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
         return rootGlobalView;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        this.mIsVisibleToUser = isVisibleToUser;
+    public void setArguments(Bundle mBundleF){
+        this.mBundleF = mBundleF;
     }
+
+    public Bundle getArguments(){
+        return this.mBundleF;
+    }
+
+    public void setChildFragmentManager(FragmentManager childFragmentManager){
+        this.mChildFragmentManager = childFragmentManager;
+    }
+
+    public FragmentManager getChildFragmentManager(){
+        return this.mChildFragmentManager;
+    }
+
 
     @Override
     public void addLayoutView(LayoutInflater inflater,FrameLayout scrollContentView, Bundle savedInstanceState) {
@@ -120,10 +137,15 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
         //没有实现任何功能
     }
 
+    View mView;//activity的布局
     @Override
     public View setContentView(int layoutResID) {
-        View view = LayoutInflater.from(mContext).inflate(layoutResID,mScrollContent);
-        return view;
+        mView = LayoutInflater.from(mContext).inflate(layoutResID,mScrollContent);
+        return mView;
+    }
+
+    public View getActivityView(){
+        return this.mView;
     }
 
     @Override
@@ -132,9 +154,9 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
             View rootGlobalView =  LayoutInflater.from(mContext).inflate(R.layout.layout_global_view,null);
             mLayoutStatus = rootGlobalView.findViewById(R.id.layout_status);
             mSmartRefresh = rootGlobalView.findViewById(R.id.smart_refresh);
-            mScrollContent = rootGlobalView.findViewById(R.id.scroll_content_view);
             mRefreshHeader = rootGlobalView.findViewById(R.id.refresh_header);
             mRefreshFooter = rootGlobalView.findViewById(R.id.refresh_footer);
+            mScrollContent = rootGlobalView.findViewById(R.id.scroll_content_view);
             setContentView(layoutResID);
             initData();
             return rootGlobalView;
@@ -144,14 +166,16 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     }
 
-    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.mIsVisibleToUser = isVisibleToUser;
+    }
+
     public void onResume(boolean isVisibleToUser) {
         this.mIsVisibleToUser = isVisibleToUser;
     }
 
     @Override
     public void onResume() {
-
     }
 
     @Override
@@ -161,7 +185,7 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
 
     @Override
     public void onPause() {
-
+//        this.mIsVisibleToUser = false;
     }
 
     @Override
@@ -174,6 +198,15 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
         if(mUnbinder != null){
             mUnbinder.unbind();
         }
+    }
+
+    public void finish(){
+        mIBaseView.finishA();
+    }
+
+    @Override
+    public boolean onKeyDown(boolean keyBoolean,int keyCode, KeyEvent event) {
+        return keyBoolean;
     }
 
     @Override
@@ -345,4 +378,5 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
             mDialog.dismiss();
         }
     }
+
 }

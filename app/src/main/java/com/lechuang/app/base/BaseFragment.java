@@ -1,14 +1,15 @@
 package com.lechuang.app.base;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lechuang.app.base.lisenters.IBaseView;
+import com.lechuang.app.utils.Logger;
 
 
 /**
@@ -19,7 +20,7 @@ import com.lechuang.app.base.lisenters.IBaseView;
 
 public abstract class BaseFragment extends Fragment implements IBaseView{
 
-    protected BasePresenter mBasePresenter;
+    public BasePresenter mBasePresenter;
     private Context mContext;
 
     @Override
@@ -36,12 +37,25 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = mBasePresenter.onCreateView(inflater, container, savedInstanceState);
+        mBasePresenter.setArguments(getArguments());
+        mBasePresenter.setChildFragmentManager(getChildFragmentManager());
         initCreateContent();
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(mBasePresenter != null){
+            mBasePresenter.setUserVisibleHint(getUserVisibleHint());
+            Logger.e("tab_BaseFragment",isVisibleToUser + "");
+        }
+    }
+
+
     public void initCreateContent(){
         mBasePresenter.initCreateContent();
+
     }
 
     @Override
@@ -52,15 +66,12 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        mBasePresenter.setUserVisibleHint(isVisibleToUser);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        mBasePresenter.onResume(getUserVisibleHint());
+//        mBasePresenter.onResume(getUserVisibleHint());
+        if(mBasePresenter != null){
+            mBasePresenter.setUserVisibleHint(getUserVisibleHint());
+        }
     }
 
     @Override
@@ -79,6 +90,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     public void onDestroy() {
         super.onDestroy();
         mBasePresenter.onDestroy();
+        Logger.e("tag","onDestroy");
     }
 
     @Override
@@ -89,5 +101,10 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     @Override
     public void toast(String message) {
         mBasePresenter.toast(message);
+    }
+
+    @Override
+    public void finishA() {
+
     }
 }

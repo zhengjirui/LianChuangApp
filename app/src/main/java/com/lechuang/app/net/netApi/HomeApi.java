@@ -1,6 +1,6 @@
 package com.lechuang.app.net.netApi;
 
-import com.lechuang.app.model.bean.GetBean;
+import com.lechuang.app.model.bean.GetBeanTablayout;
 import com.lechuang.app.model.bean.HomeBannerBean;
 import com.lechuang.app.model.bean.HomeGunDongTextBean;
 import com.lechuang.app.model.bean.HomeKindBean;
@@ -76,7 +76,7 @@ public interface HomeApi {
      * @return
      */
     @POST(QUrl.getTopTabList)
-    Observable<ResultBean<GetBean>> topTabList();
+    Observable<ResultBean<GetBeanTablayout>> topTabList();
 
     /**
      * 首页最下栏目接口
@@ -177,7 +177,7 @@ public interface HomeApi {
 //     * @return
 //     */
 //    @POST(QUrl.getTopTabList)
-//    Observable<ResultBean<GetBean>> lastTabList();
+//    Observable<ResultBean<GetBeanTablayout>> lastTabList();
     /**
      * 首页滚动爆料的数据
      */

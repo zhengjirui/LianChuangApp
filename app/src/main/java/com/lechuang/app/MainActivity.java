@@ -1,13 +1,13 @@
 package com.lechuang.app;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.lechuang.app.base.BaseNavTabActivity;
@@ -166,16 +166,16 @@ public class MainActivity extends BaseNavTabActivity {
             mBaoLiaoFragment = (BaoLiaoFragment) mFragmentManager.findFragmentByTag(FRAGMENT_TAG[3]);
             mMineFragment = (MineFragment) mFragmentManager.findFragmentByTag(FRAGMENT_TAG[3]);
         }
-        mFragmentManager = getFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
         setCurrentTab(oldTab);
     }
 
     @Override
     public void setItemName() {
         itemName.add("首页");
-        itemName.add("超级搜");
-        itemName.add("分享赚");
-        itemName.add("爆料");
+        itemName.add("分类");
+        itemName.add("品牌优选");
+        itemName.add("收藏");
         itemName.add("我的");
         super.setItemName();
     }

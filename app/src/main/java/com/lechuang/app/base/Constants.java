@@ -49,4 +49,14 @@ public interface Constants {
     // 友盟信息
     String UMENG_APPKEY = "5a6097e78f4a9d6f6b000117";
     String UMENG_CHANNEL = "quanquanjie";
+
+    String KEY_AGENCY_STATUS = "isAgencyStatus";//是否是代理 1 代理  0 不是
+    public static final String KEY_HAS_LOGIN = "isLogin";//是否登陆
+
+    String KEY_PAY_PRICE = "payPriceStr";
+    String KEY_ROOT_ID = "rootId";
+    String ACTION_LOGIN_SUCCESS = "login_success";//登陆成功
+    String ACTION_LOGIN_OUT = "login_out"; // 退出登陆
+    String ACTION_APPLY_AGENT_SUCCESS = "agent_success";//申请代理成功
+    boolean isTop = true; // SwipeLayout 是否可点击
 }

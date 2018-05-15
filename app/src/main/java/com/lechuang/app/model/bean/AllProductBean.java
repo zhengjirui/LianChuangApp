@@ -9,28 +9,7 @@ import java.util.List;
  * Description:
  */
 
-public class GetBean extends BaseEventBean implements Serializable{
-
-
-    public List<TopTab> tbclassTypeList;
-
-    public static class TopTab {
-        public String id;
-        public String img;
-        public String name;
-        public int parentId;
-        public int rootId;
-        public String rootName;
-    }
-
-    public List<TopBanner> zhuanBannerList;
-
-    public static class TopBanner{
-        public String id;
-        public String img;
-        public int type = 9;
-    }
-
+public class AllProductBean implements Serializable{
 
     public List<ListInfo> productList;
 
@@ -43,7 +22,7 @@ public class GetBean extends BaseEventBean implements Serializable{
         public long couponCount;
         public long couponEndTime;
         public String couponMoney;
-        public long createTime;
+        public String createTime;
         public double describeScore;
         public String errorMessage;
         public String id;
@@ -80,15 +59,7 @@ public class GetBean extends BaseEventBean implements Serializable{
         public String shopType;
         public long tbCreateTime;
         /*public String tbPrivilegeUrl;*/
-        public String zhuanMoney;
-        //分享图片列表
         public List<String> smallImages;
-    }
-
-    public  Item item;
-
-    public static class  Item implements Serializable{
-      public   List<String> images;
-
+        public String zhuanMoney;
     }
 }

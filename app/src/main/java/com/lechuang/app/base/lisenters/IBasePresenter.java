@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +45,6 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
      */
     View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState);
 
-    /**
-     * fragment的懒加载回调
-     * @param isVisibleToUser
-     */
-    void setUserVisibleHint(boolean isVisibleToUser);
-
     void onStart();
 
     void setContentView(View view);
@@ -66,12 +61,6 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
 
     void onResume();
 
-    /**
-     * fragment的获取焦点
-     * @param isVisibleToUser
-     */
-    void onResume(boolean isVisibleToUser);
-
     void onRestart();
 
     void onPause();
@@ -79,6 +68,8 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
     void onStop();
 
     void onDestroy();
+
+    boolean onKeyDown(boolean keyBoolean,int keyCode, KeyEvent event);
 
     /**
      * 设置是否可以下拉刷新

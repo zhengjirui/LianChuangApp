@@ -27,11 +27,11 @@ import java.util.List;
  * @describe:
  */
 
-public class HomeProductAdapter extends BaseQuickAdapter<HomeLastProgramBean.ListBean, BaseViewHolder> {
+public class HomeProductRecycleAdapter extends BaseQuickAdapter<HomeLastProgramBean.ListBean, BaseViewHolder> {
 
     private int mIsAgencyStatus;//是否是代理
 
-    public HomeProductAdapter(int layoutResId, @Nullable List<HomeLastProgramBean.ListBean> data,int isAgencyStatus) {
+    public HomeProductRecycleAdapter(int layoutResId, @Nullable List<HomeLastProgramBean.ListBean> data, int isAgencyStatus) {
         super(layoutResId, data);
         this.mIsAgencyStatus = isAgencyStatus;
     }

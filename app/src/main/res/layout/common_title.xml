@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/white"
+    >
+
+
+    <!--上一页-->
+    <ImageView
+        android:id="@+id/iv_back"
+        style="@style/Button_Style_0"
+        android:layout_gravity="center|left"
+        android:scaleType="center"
+        android:src="@mipmap/ic_black_back"
+        />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        style="@style/textStyle"
+        android:layout_gravity="center_vertical"
+        android:onClick="finish"
+        android:text="取消"
+        android:textColor="@color/main"
+        android:visibility="gone"
+        />
+
+
+    <!--title-->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/main"
+        android:textSize="18sp"
+        android:text="title"
+        />
+
+
+    <!--右面其他-->
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="分享"
+        android:textColor="@color/main"
+        android:textSize="15sp"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:src="@mipmap/ic_black_back"
+
+        />
+
+    <!--底部分界线-->
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/rgb_eee"
+        />
+
+
+</FrameLayout>
+

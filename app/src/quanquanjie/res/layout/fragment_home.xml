@@ -10,6 +10,7 @@
         android:id="@+id/refreshview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         >
 
         <LinearLayout
@@ -175,10 +176,11 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 app:tabIndicatorColor="@color/main"
-                app:tabIndicatorHeight="3dp"
+                app:tabIndicatorHeight="2dp"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/main"
                 app:tabTextColor="@color/c_676767"
+                app:tabBackground="@android:color/transparent"
                 />
 
             <View
@@ -186,12 +188,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/rgb_eee"
-                />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager_home_product"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 />
 
             <RelativeLayout
@@ -228,13 +224,14 @@
             android:id="@+id/tablayout_home_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:visibility="invisible"
+            android:background="@color/white"
             app:tabIndicatorColor="@color/main"
-            app:tabIndicatorHeight="3dp"
+            app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main"
             app:tabTextColor="@color/c_676767"
+            app:tabBackground="@android:color/transparent"
             />
     </LinearLayout>
 

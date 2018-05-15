@@ -188,7 +188,7 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
     //banner 开源框架 https://github.com/youth5201314/banner
     compile 'com.youth.banner:banner:1.4.10'
-        compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
     //    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     //    compile 'com.github.chrisbanes:PhotoView:2.0.0'
     //    compile 'com.jude:rollviewpager:1.4.5'
@@ -200,4 +200,5 @@ dependencies {
     implementation files('libs/umeng-common-1.4.0.jar')
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile 'com.zhjirui.utils:webmanger:1.0.2'
 }

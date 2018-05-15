@@ -3,7 +3,7 @@ package com.lechuang.app.model;
 import android.content.Context;
 
 import com.lechuang.app.R;
-import com.lechuang.app.model.bean.GetBean;
+import com.lechuang.app.model.bean.GetBeanTablayout;
 import com.lechuang.app.model.bean.HomeBannerBean;
 import com.lechuang.app.model.bean.HomeDefaultKindBean;
 import com.lechuang.app.model.bean.HomeGunDongTextBean;
@@ -18,9 +18,8 @@ import com.lechuang.app.net.netApi.HomeApi;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -31,7 +30,7 @@ import rx.schedulers.Schedulers;
  * @describe:
  */
 
-public class HomeModels {
+public class HomeModels implements Serializable{
 
     protected Context mContext;
 
@@ -182,9 +181,9 @@ public class HomeModels {
                 .topTabList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ResultBack<GetBean>(mContext) {
+                .subscribe(new ResultBack<GetBeanTablayout>(mContext) {
                     @Override
-                    public void successed(GetBean result) {
+                    public void successed(GetBeanTablayout result) {
                         if (result != null) {
                             EventBus.getDefault().post(result);
                         }

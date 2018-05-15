@@ -1,12 +1,12 @@
 package com.lechuang.app.presenter.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -16,17 +16,19 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lechuang.app.R;
 import com.lechuang.app.base.BasePresenter;
+import com.lechuang.app.base.Constants;
 import com.lechuang.app.base.lisenters.IBaseView;
 import com.lechuang.app.lisenters.IOnScrollChangedListener;
 import com.lechuang.app.model.HomeModels;
 import com.lechuang.app.model.bean.BaseEventBean;
-import com.lechuang.app.model.bean.GetBean;
+import com.lechuang.app.model.bean.GetBeanTablayout;
 import com.lechuang.app.model.bean.HomeBannerBean;
 import com.lechuang.app.model.bean.HomeDefaultKindBean;
 import com.lechuang.app.model.bean.HomeGunDongTextBean;
@@ -36,9 +38,10 @@ import com.lechuang.app.model.bean.HomeProgramBean;
 import com.lechuang.app.model.bean.HomeTipoffListBean;
 import com.lechuang.app.model.bean.HomeTodayProductBean;
 import com.lechuang.app.presenter.activity.adapter.HomeKindAdapter;
-import com.lechuang.app.presenter.activity.adapter.HomeProductAdapter;
+import com.lechuang.app.presenter.activity.adapter.HomeProductRecycleAdapter;
 import com.lechuang.app.view.AutoTextView;
 import com.lechuang.app.view.TransChangeScrollView;
+import com.lechuang.app.view.productdetails.ProductDetailsActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -52,6 +55,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author: LGH
@@ -85,8 +89,6 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
     RecyclerView mRecycleHomeProduct;
     @BindView(R.id.tablayout_home_top)
     TabLayout mTablayoutHomeTop;
-    @BindView(R.id.viewpager_home_product)
-    ViewPager mViewPagerHomeProduct;
 
 
     HomeModels mHomeModels;
@@ -98,6 +100,7 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
         super(mIBaseView);
     }
 
+
     @Override
     public void addLayoutView(LayoutInflater inflater, FrameLayout scrollContentView, Bundle savedInstanceState) {
         super.addLayoutView(inflater, scrollContentView, savedInstanceState);
@@ -105,7 +108,6 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
         EventBus.getDefault().register(this);
         mLayoutStatus.setVisibility(View.GONE);
         mDisplayMetrics = mContext.getResources().getDisplayMetrics();
-
         setEnableRefresh(true);
         setEnableLoadMore(true);
     }
@@ -126,14 +128,18 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
         //初始化快播数据
         initKuaiboData();
 
+        //初始化底部和顶部tab的数据
+        initTablayoutData();
+
         //初始化底部商品的数据
         initProductRecycleData();
 
-        mHomeModels = new HomeModels(mContext);
+
         loadAllData();
     }
 
     private void loadAllData() {
+        mHomeModels = new HomeModels(mContext);
         mHomeModels.getHomeBannerData();
         mHomeModels.getHomeKindData_1();
         mHomeModels.getHomeKindData_2();
@@ -293,17 +299,90 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
             Glide.with(mContext).load(programaImgList.get(3).img).placeholder(mContext.getResources().getDrawable(R.mipmap.home_program_jiazaitu)).into(mIvProgram4);
     }
 
+    private int tabCurrentPositon = 0;
+
+    private void initTablayoutData() {
+
+        //上面的tab
+        //tab可滚动
+        mTablayoutHomeTop.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //tab居中显示
+        mTablayoutHomeTop.setTabGravity(TabLayout.GRAVITY_CENTER);
+
+        //下面的tab
+        //tab可滚动
+        mTablayoutHomeBellow.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //tab居中显示
+        mTablayoutHomeBellow.setTabGravity(TabLayout.GRAVITY_CENTER);
+
+
+//        float scaleTopX = mTablayoutHomeTop.getScaleX();
+//        float scaleBellowX = mTablayoutHomeBellow.getScaleX();
+//        if(scaleTopX != scaleBellowX){
+//            if(mTablayoutHomeTop.getVisibility() == View.VISIBLE){
+//                mTablayoutHomeTop.setScaleX(scaleTopX);
+//                mTablayoutHomeBellow.setScaleX(scaleTopX);
+//            }else {
+//                mTablayoutHomeTop.setScaleX(scaleBellowX);
+//                mTablayoutHomeBellow.setScaleX(scaleBellowX);
+//            }
+//        }
+
+        TabSelected tabSelected = new TabSelected();
+        mTablayoutHomeTop.addOnTabSelectedListener(tabSelected);
+        mTablayoutHomeBellow.addOnTabSelectedListener(tabSelected);
+    }
+
+    @OnClick({R.id.iv_program1, R.id.iv_program3, R.id.iv_program2, R.id.iv_program4})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_program1:
+                break;
+            case R.id.iv_program3:
+                break;
+            case R.id.iv_program2:
+                break;
+            case R.id.iv_program4:
+                break;
+        }
+    }
+
+    class TabSelected implements TabLayout.OnTabSelectedListener {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            tabCurrentPositon = tab.getPosition();
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+
+    }
+
     /**
      * 更新TablayoutData
      */
-    private void updataTablayoutData() {
-    }
 
+    private void updataTablayoutData(GetBeanTablayout getBeanTablayout) {
+        for (GetBeanTablayout.TopTab tab : getBeanTablayout.tbclassTypeList) {
+            mTablayoutHomeTop.addTab(mTablayoutHomeTop.newTab().setText(tab.rootName));
+        }
+
+        for (GetBeanTablayout.TopTab tab : getBeanTablayout.tbclassTypeList) {
+            mTablayoutHomeBellow.addTab(mTablayoutHomeBellow.newTab().setText(tab.rootName));
+        }
+    }
 
     /**
      * 初始化Product商品数据
      */
-    HomeProductAdapter mHomeProductAdapter;
+    HomeProductRecycleAdapter mHomeProductRecycleAdapter;
 
     private void initProductRecycleData() {
 
@@ -311,12 +390,15 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
         mRecycleHomeProduct.setNestedScrollingEnabled(false);
         mRecycleHomeProduct.setLayoutManager(gridLayoutManager);
         HomeLastProgramBean homeLastProgramBean = new HomeLastProgramBean();
-        mHomeProductAdapter = new HomeProductAdapter(R.layout.home_product_item, homeLastProgramBean.productList, 1);
-        mRecycleHomeProduct.setAdapter(mHomeProductAdapter);
-        mHomeProductAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mHomeProductRecycleAdapter = new HomeProductRecycleAdapter(R.layout.home_product_item, homeLastProgramBean.productList, 1);
+        mRecycleHomeProduct.setAdapter(mHomeProductRecycleAdapter);
+        mHomeProductRecycleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 toast(position + "");
+                Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+                intent.putExtra(Constants.listInfo, JSON.toJSONString(adapter.getData().get(position)));
+                mContext.startActivity(intent);
             }
         });
     }
@@ -325,34 +407,10 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
      * 更新Product
      */
     private void updataProductData(HomeLastProgramBean homeLastProgramBean) {
+        //实现方式一
         List<HomeLastProgramBean.ListBean> productList = homeLastProgramBean.productList;
-        mHomeProductAdapter.setNewData(productList);
-    }
+        mHomeProductRecycleAdapter.setNewData(productList);
 
-    private void initTablayoutData(){
-
-        //上面的tab
-        //tab可滚动
-        mTablayoutHomeTop.setTabMode(TabLayout.MODE_SCROLLABLE);
-        //tab居中显示
-        mTablayoutHomeTop.setTabGravity(TabLayout.GRAVITY_CENTER);
-        //tab的字体选择器,默认黑色,选择时红色
-        mTablayoutHomeTop.setTabTextColors(R.color.c_app_main_text, R.color.main);
-        //tab的下划线颜色,默认是粉红色
-        mTablayoutHomeTop.setSelectedTabIndicatorColor(mContext.getResources().getColor(R.color.main));
-
-        //下面的tab
-        //tab可滚动
-        mTablayoutHomeBellow.setTabMode(TabLayout.MODE_SCROLLABLE);
-        //tab居中显示
-        mTablayoutHomeBellow.setTabGravity(TabLayout.GRAVITY_CENTER);
-        //tab的字体选择器,默认黑色,选择时红色
-        mTablayoutHomeBellow.setTabTextColors(R.color.c_app_main_text, R.color.main);
-        //tab的下划线颜色,默认是粉红色
-        mTablayoutHomeBellow.setSelectedTabIndicatorColor(mContext.getResources().getColor(R.color.main));
-//        mContext.get
-        mTablayoutHomeTop.setupWithViewPager(mViewPagerHomeProduct);
-//        mTablayoutHomeTop.setScrollPosition();
     }
 
     @Override
@@ -395,7 +453,10 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
         } else {
             mTablayoutHomeTop.setVisibility(View.INVISIBLE);
         }
+        mTablayoutHomeTop.setScrollPosition(tabCurrentPositon, 0, true);
+        mTablayoutHomeBellow.setScrollPosition(tabCurrentPositon, 0, true);
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void homeData(BaseEventBean eventBean) {
@@ -426,7 +487,9 @@ public class HomePresenterF extends BasePresenter implements IOnScrollChangedLis
             toast("6");
         } else if (eventBean instanceof HomeTodayProductBean.ProudList) {
             toast("7");
-        } else if (eventBean instanceof GetBean) {
+        } else if (eventBean instanceof GetBeanTablayout) {
+            GetBeanTablayout getBeanTablayout = (GetBeanTablayout) eventBean;
+            updataTablayoutData(getBeanTablayout);
             toast("8");
         } else if (eventBean instanceof HomeLastProgramBean) {
             HomeLastProgramBean homeLastProgramBean = (HomeLastProgramBean) eventBean;

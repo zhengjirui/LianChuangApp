@@ -1,6 +1,6 @@
 package com.lechuang.app.model.data;
 
-import com.lechuang.app.model.bean.GetBean;
+import com.lechuang.app.model.bean.GetBeanTablayout;
 import com.lechuang.app.model.bean.HomeBannerBean;
 import com.lechuang.app.model.bean.HomeDefaultKindBean;
 import com.lechuang.app.model.bean.HomeGunDongTextBean;
@@ -43,7 +43,7 @@ public class HomeData {
 
 
     //tab数据
-    public GetBean mGetBean;
+    public GetBeanTablayout mGetBeanTablayout;
 
 
     //商品数据(默认'全部')

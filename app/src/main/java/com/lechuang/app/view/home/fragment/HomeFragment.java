@@ -20,5 +20,4 @@ public class HomeFragment  extends BaseFragment {
     protected BasePresenter onCreatePresenter(@Nullable Bundle savedInstanceState) {
         return mBasePresenter = new HomePresenterF(this);
     }
-
 }

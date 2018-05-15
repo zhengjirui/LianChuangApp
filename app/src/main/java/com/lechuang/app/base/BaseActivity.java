@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
         App.getInstance().addActivity(this);
         mBasePresenter = onCreatePresenter(savedInstanceState);
     }
+
 
     //没有presenter可以不用重写该方法
     protected BasePresenter onCreatePresenter(@Nullable Bundle savedInstanceState){
@@ -134,6 +137,10 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
         super.onBackPressed();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return mBasePresenter.onKeyDown(super.onKeyDown(keyCode, event),keyCode, event);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -186,5 +193,10 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
     @Override
     public Context getContext() {
         return BaseActivity.this;
+    }
+
+    @Override
+    public void finishA() {
+        finish();
     }
 }

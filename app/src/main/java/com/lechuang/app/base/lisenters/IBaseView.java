@@ -12,6 +12,8 @@ public interface IBaseView {
 
     Context getContext();
 
+    void finishA();
+
     /**
      * 弹出提示
      * @param message
