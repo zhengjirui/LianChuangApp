@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
-import android.view.View;
 
 import com.lechuang.app.base.BaseActivity;
 import com.lechuang.app.base.Constants;
@@ -17,8 +16,8 @@ import com.lechuang.app.net.Netword;
 import com.lechuang.app.net.ResultBack;
 import com.lechuang.app.net.netApi.CommenApi;
 import com.lechuang.app.utils.SpreUtils;
-import com.lechuang.app.view.Adver.FirstIntoAdverActivity;
-import com.lechuang.app.view.Adver.NormalIntoActivity;
+import com.lechuang.app.view.adver.FirstIntoAdverActivity;
+import com.lechuang.app.view.adver.NormalIntoActivity;
 
 import java.util.ArrayList;
 import java.util.List;

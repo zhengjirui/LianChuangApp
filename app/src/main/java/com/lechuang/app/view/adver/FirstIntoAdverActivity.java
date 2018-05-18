@@ -1,9 +1,8 @@
-package com.lechuang.app.view.Adver;
+package com.lechuang.app.view.adver;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;

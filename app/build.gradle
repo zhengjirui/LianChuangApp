@@ -20,7 +20,7 @@ android {
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
@@ -88,6 +88,24 @@ android {
             putParameter(it, applicationId, appName, appNamePinyin, uri, ali_PID, ali_APP_KEY, JPUSH_APPKEY, UMENG_APPKEY)
         }
 
+        //去领券
+        qulingquan {
+            applicationId "com.lechuang.xiaomao"
+            versionCode 100
+            versionName "1.0.0"
+            def appName = "仿小猫"
+            def appNamePinyin = "QULINGQUAN"
+            //服务器地址
+            def uri = "http://87946938.mulanhuitao.com/"
+            //淘宝pid(百川用户pid   非常重要  注意替换)
+            def ali_PID = "mm_47156066_0_0"
+            //appkey  (百川的appkey 用于客服功能  注意替换)
+            def ali_APP_KEY = "24690427"
+            def JPUSH_APPKEY = "67bcfb0b4ff950803b6061ad"
+            def UMENG_APPKEY = "5a6097e78f4a9d6f6b000117"
+            putParameter(it, applicationId, appName, appNamePinyin, uri, ali_PID, ali_APP_KEY, JPUSH_APPKEY, UMENG_APPKEY)
+        }
+
         //桔子姑娘
         juziguniang {
             applicationId "com.lechuang.juziguniang"
@@ -106,6 +124,11 @@ android {
             //在主页面底部,是否是帮助中心,而不是爆料
             putParameter(it, applicationId, appName, appNamePinyin, uri, ali_PID, ali_APP_KEY, JPUSH_APPKEY, UMENG_APPKEY)
         }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
@@ -198,6 +221,8 @@ dependencies {
     //    testCompile 'junit:junit:4.12'
     implementation files('libs/umeng-analytics-7.4.0.jar')
     implementation files('libs/umeng-common-1.4.0.jar')
+    implementation files('libs/open_sdk_r5990_lite.jar')
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile 'com.zhjirui.utils:webmanger:1.0.2'

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.lechuang.app.view.TransChangeScrollView
+        android:id="@+id/refreshview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner_home_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:image_scale_type="fit_xy"
+                app:indicator_height="10dp"
+                app:indicator_width="10dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                >
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_home_Kind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    />
+            </RelativeLayout>
+
+            <!--快播 done-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:background="@color/rgb_eee"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                >
+
+                <TextView
+                    style="@style/sp12BlackTextView"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/app_name"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/kuaibao"
+                    />
+
+                <TextView
+                    style="@style/sp12BlackTextView"
+                    android:layout_marginLeft="5dp"
+                    android:text="抢"
+                    android:textColor="@color/rgb_f62c52"
+                    />
+
+                <com.lechuang.app.view.AutoTextView
+                    android:id="@+id/tv_auto_text"
+                    style="@style/sp12BlackTextView"
+                    android:layout_marginLeft="10dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="每日上新，打牌显示特卖，优选新品任你挑"
+                    />
+
+            </LinearLayout>
+
+            <!--4个栏目 done-->
+            <LinearLayout
+                android:id="@+id/iv_program_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_program1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/home_program_jiazaitu"
+                        />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/c_F4F4F4"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_program3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/home_program_jiazaitu"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/c_F4F4F4"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_program2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/home_program_jiazaitu"
+                        />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/c_F4F4F4"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_program4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/home_program_jiazaitu"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/c_F4F4F4"
+                />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout_home_bellow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:tabIndicatorColor="@color/main"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/main"
+                app:tabTextColor="@color/c_676767"
+                app:tabBackground="@android:color/transparent"
+                />
+
+            <View
+                android:id="@+id/iv_jump"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/rgb_eee"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                >
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_home_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </com.lechuang.app.view.TransChangeScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <View
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/main"
+            />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout_home_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/main"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/main"
+            app:tabTextColor="@color/c_676767"
+            app:tabBackground="@android:color/transparent"
+            />
+    </LinearLayout>
+
+</FrameLayout>

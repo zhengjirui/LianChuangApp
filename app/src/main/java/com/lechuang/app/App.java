@@ -8,6 +8,7 @@ import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.alibaba.mobileim.YWAPI;
 import com.alibaba.wxlib.util.SysUtil;
 import com.lechuang.app.base.Constants;
+import com.lechuang.app.utils.Logger;
 import com.lechuang.app.utils.Utils;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -61,6 +62,7 @@ public class App extends Application {
 
             @Override
             public void onFailure(int code, String msg) {
+                Logger.e("-----TAG",code + msg);
                 //初始化失败，可以根据code和msg判断失败原因，详情参见错误说明
             }
         });

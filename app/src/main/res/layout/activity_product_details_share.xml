@@ -6,6 +6,7 @@
     android:orientation="vertical"
     >
 
+    <include layout="@layout/layout_status_bar" />
 
     <include layout="@layout/common_title"/>
 

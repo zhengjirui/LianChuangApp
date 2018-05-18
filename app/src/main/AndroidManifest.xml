@@ -228,7 +228,7 @@
 
         <!-- 第一次进入的广告图 -->
         <activity
-            android:name=".view.Adver.FirstIntoAdverActivity"
+            android:name=".view.adver.FirstIntoAdverActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Adver"
             android:windowSoftInputMode="stateHidden|adjustNothing"
@@ -236,18 +236,54 @@
 
         <!-- 非第一次进入的广告图 -->
         <activity
-            android:name=".view.Adver.NormalIntoActivity"
+            android:name=".view.adver.NormalIntoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Adver"
             android:windowSoftInputMode="stateHidden|adjustNothing"
             />
-        <activity android:name=".view.login.LoginActivity">
+
+        <!-- 登录 -->
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
+
+        <!-- 通用的加载webview -->
+        <activity
+            android:name=".view.loadwebview.LoadWebViewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
+
+        <!-- 产品详情 -->
+        <activity
+            android:name=".view.productdetails.ProductDetailsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
+
+        <!-- 产品详情  分享页 -->
+        <activity
+            android:name=".view.productdetails.ProductDetailsShareActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.set.SetActivity">
         </activity>
-        <activity android:name=".view.loadwebview.LoadWebViewActivity">
+        <activity android:name=".view.mine.MineNewsActivity">
         </activity>
-        <activity android:name=".view.productdetails.ProductDetailsActivity">
+        <activity android:name=".view.mine.SignActivity">
         </activity>
-        <activity android:name=".view.productdetails.ProductDetailsShareActivity">
+        <activity android:name=".view.mine.TaskCenterActivity">
+        </activity>
+        <activity android:name=".view.mine.JiFenTixianActivity">
+        </activity>
+        <activity android:name=".view.mine.ShareAppActivity">
+        </activity>
+        <activity android:name=".view.mine.HeroActivity">
+        </activity>
+        <activity android:name=".view.set.FaceBackActivity">
         </activity>
     </application>
 

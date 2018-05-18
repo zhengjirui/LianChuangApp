@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -179,6 +180,11 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+
+    }
+
+    @Override
     public void onRestart() {
 
     }
@@ -207,6 +213,11 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter{
     @Override
     public boolean onKeyDown(boolean keyBoolean,int keyCode, KeyEvent event) {
         return keyBoolean;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 
     @Override

@@ -103,6 +103,7 @@ public class SpreUtils {
         SharedPreferences pref = context.getSharedPreferences(PREFERENCE_NAME, 0);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
+        editor.commit();
         editor.putBoolean(Constants.IS_FIRST_OPEN_APP, true);
         return editor.commit();
     }

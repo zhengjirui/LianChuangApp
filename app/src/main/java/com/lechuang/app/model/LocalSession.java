@@ -33,6 +33,12 @@ public class LocalSession extends Observable implements Serializable {
     private int isAgencyStatus;//1是以代理，其它不是
     private String id;   //用户id 传给会员中心
     private WeakReference<Context> weakReference;
+    private boolean isBind =false;  //是否绑定过邀请码
+    private String openId;//openid
+    private String weixinName;
+    private String weixinPhoto;
+    private String qqName;
+    private String qqPhoto;
 
     public static LocalSession get(Context context) {
         if (mInstance == null) {
@@ -151,6 +157,14 @@ public class LocalSession extends Observable implements Serializable {
         this.alipayNumber = alipayNumber;
     }
 
+    public boolean getIsBind() {
+        return isBind;
+    }
+
+    public void setIsBind(boolean isBind) {
+        this.isBind = isBind;
+    }
+
     public int getIsAgencyStatus() {
         return isAgencyStatus;
     }
@@ -181,6 +195,46 @@ public class LocalSession extends Observable implements Serializable {
         super.setChanged();
         super.notifyObservers(new Pair<String, Object>(
                 SessionManager.P_ISFIRST, isFirst));
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getWeixinName() {
+        return weixinName;
+    }
+
+    public void setWeixinName(String weixinName) {
+        this.weixinName = weixinName;
+    }
+
+    public String getWeixinPhoto() {
+        return weixinPhoto;
+    }
+
+    public void setWeixinPhoto(String weixinPhoto) {
+        this.weixinPhoto = weixinPhoto;
+    }
+
+    public String getQqName() {
+        return qqName;
+    }
+
+    public void setQqName(String qqName) {
+        this.qqName = qqName;
+    }
+
+    public String getQqPhoto() {
+        return qqPhoto;
+    }
+
+    public void setQqPhoto(String qqPhoto) {
+        this.qqPhoto = qqPhoto;
     }
 
    /* @Override
@@ -217,6 +271,12 @@ public class LocalSession extends Observable implements Serializable {
                 ", alipayNumber='" + alipayNumber + '\'' +
                 ", isAgencyStatus=" + isAgencyStatus +
                 ", id='" + id + '\'' +
+                ", isBind='" + isBind + '\'' +
+                ", openId='" + openId + '\'' +
+                ", weixinName='" + weixinName + '\'' +
+                ", weixinPhoto='" + weixinPhoto + '\'' +
+                ", qqName='" + qqName + '\'' +
+                ", qqPhoto='" + qqPhoto + '\'' +
                 '}';
     }
 
@@ -235,6 +295,12 @@ public class LocalSession extends Observable implements Serializable {
         alipayNumber = "";
         isAgencyStatus = 0;
         id = "";
+        isBind = false;
+        openId = "";
+        weixinName = "";
+        weixinPhoto = "";
+        qqName = "";
+        qqPhoto = "";
     }
 
 }

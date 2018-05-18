@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lechuang.app.view.MGridView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gv_kind"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:horizontalSpacing="20dp"
+    android:listSelector="@color/transparent"
+    android:numColumns="3"
+    android:background="@color/white"
+    android:scrollbars="none"
+    android:verticalSpacing="8dp">
+
+</com.lechuang.app.view.MGridView>

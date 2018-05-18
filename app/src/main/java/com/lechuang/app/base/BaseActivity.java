@@ -1,6 +1,9 @@
 package com.lechuang.app.base;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -11,6 +14,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.lechuang.app.App;
+import com.lechuang.app.R;
 import com.lechuang.app.base.lisenters.IBaseView;
 import com.lechuang.app.events.NetStateEvent;
 import com.lechuang.app.lisenters.INetStateLisenter;
@@ -50,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
         //管理activity
         App.getInstance().addActivity(this);
         mBasePresenter = onCreatePresenter(savedInstanceState);
+        setLoadView();
     }
 
 
@@ -151,7 +157,6 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
         return super.onTouchEvent(event);
     }
 
-
     public void toast(String message) {
         mBasePresenter.toast(message);
     }
@@ -198,5 +203,45 @@ public abstract class BaseActivity extends AppCompatActivity implements INetStat
     @Override
     public void finishA() {
         finish();
+    }
+
+
+    private Dialog mDialog;
+
+    private void setLoadView() {
+        // 获取Dialog布局
+        if (mDialog == null) {
+            mDialog = new Dialog(mContext, R.style.AlertDialogStyle);
+            mDialog.setCanceledOnTouchOutside(false);
+            View view = LayoutInflater.from(mContext).inflate(
+                    R.layout.view_loading_alertdialog, null);
+            mDialog.setContentView(view);
+            mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    //拦截返回键的操作，点击返回键返回false会消失当前窗口，返回true待鉴定
+//                    HttpManger.getHttpInstance().cancelAllRequest();
+                    return false;
+                }
+            });
+        }
+    }
+
+    /**
+     * 显示加载框
+     */
+    public void show() {
+        if (mDialog != null && !mDialog.isShowing()) {
+            mDialog.show();
+        }
+    }
+
+    /**
+     * 隐藏加载框
+     */
+    public void dismiss() {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
     }
 }

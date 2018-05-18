@@ -1,4 +1,4 @@
-package com.lechuang.app.view.Adver;
+package com.lechuang.app.view.adver;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.lechuang.app.MainActivity;
 import com.lechuang.app.R;
@@ -22,7 +21,6 @@ import com.lechuang.app.net.netApi.CommenApi;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

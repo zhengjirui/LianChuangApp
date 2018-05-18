@@ -54,6 +54,8 @@ public interface QUrl {
     String details = "indexShow/productDetail";
     //获取信息，帮助中心，客服中心
     String getHelpInfo="indexShow/getHelpInfo";
+
+    String getHelpInfoNew="indexShow/getHelpInfoNew";
     //进入app时的广告图
     String advertisementInfo="showAdviertisement/advertisingImg";
     //过夜单
@@ -134,6 +136,8 @@ public interface QUrl {
     String bindingPhone = "retrieve/sendBindingVerifiCode";
     //第三方淘宝登陆绑定手机号码（校验接口）
     String threeLogin = "verifyThirdCheckUser";
+    //QQ微信登录验证是否绑定手机号
+    String weixinVertify = "verifyThirdCheckOpenId";
     //第三方淘宝登陆,第一次绑定输入手机号码后调用此接口
     String threeBinding = "thirdCheckUser";
 

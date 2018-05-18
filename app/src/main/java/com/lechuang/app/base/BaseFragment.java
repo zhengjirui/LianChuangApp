@@ -68,7 +68,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     @Override
     public void onResume() {
         super.onResume();
-//        mBasePresenter.onResume(getUserVisibleHint());
+        mBasePresenter.onResume();
         if(mBasePresenter != null){
             mBasePresenter.setUserVisibleHint(getUserVisibleHint());
         }
@@ -78,6 +78,12 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     public void onPause() {
         super.onPause();
         mBasePresenter.onPause();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        mBasePresenter.onHiddenChanged(hidden);
     }
 
     @Override

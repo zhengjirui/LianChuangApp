@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/white"
+    android:layout_gravity="center_vertical">
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="6dp"
+        android:background="@color/main" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:textColor="@color/black"
+        android:layout_marginLeft="5dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="女装"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:textColor="@color/c_6D6D6D"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:text="查看全部" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/ic_next" />
+</LinearLayout>

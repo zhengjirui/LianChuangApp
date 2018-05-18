@@ -42,4 +42,8 @@ public class TaobaoLoginBean {
     public String taobaoNumber;
     public int verifiCode;
     public int isAgencyStatus;
+    public String weixinName;
+    public String weixinPhoto;
+    public String qqName;
+    public String qqPhoto;
 }

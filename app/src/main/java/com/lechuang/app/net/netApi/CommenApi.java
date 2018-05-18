@@ -2,12 +2,16 @@ package com.lechuang.app.net.netApi;
 
 import com.lechuang.app.model.bean.AdvertisementBean;
 import com.lechuang.app.model.bean.ClassInfoBean;
+import com.lechuang.app.model.bean.DataBean;
 import com.lechuang.app.model.bean.GetHostUrlBean;
+import com.lechuang.app.model.bean.HelpInfoNewBean;
 import com.lechuang.app.model.bean.LiveProductInfoBean;
 import com.lechuang.app.model.bean.LoadingImgBean;
 import com.lechuang.app.model.bean.OwnCheckVersionBean;
 import com.lechuang.app.model.bean.ResultBean;
+import com.lechuang.app.model.bean.TaobaoLoginBean;
 import com.lechuang.app.model.bean.TaobaoUrlBean;
+import com.lechuang.app.model.bean.UpdataInfoBean;
 import com.lechuang.app.net.QUrl;
 
 import java.util.HashMap;
@@ -28,11 +32,17 @@ import rx.Observable;
  */
 public interface CommenApi {
 
-//    //淘宝登录
-//    @FormUrlEncoded
-//    @POST(QUrl.threeLogin)
-//    Observable<ResultBean<TaobaoLoginBean>> threeLogin(@Field("taobaoNumber") String phoneNumber);
-//
+    //淘宝登录
+    @FormUrlEncoded
+    @POST(QUrl.threeLogin)
+    Observable<ResultBean<TaobaoLoginBean>> threeLogin(@Field("taobaoNumber") String phoneNumber);
+
+    //微信QQ登录
+    @FormUrlEncoded
+    @POST(QUrl.weixinVertify)
+    Observable<ResultBean<TaobaoLoginBean>> threeLogin(@Field("openId") String openId,@Field("type") String type );
+
+    //
 //
 //    //注册发送验证码
 //    @FormUrlEncoded
@@ -45,14 +55,15 @@ public interface CommenApi {
 //    Observable<ResultBean<String>> register(@FieldMap HashMap<String, String> allParamMap);
 //
 //
-//    //登录
-//    @FormUrlEncoded
-//    @POST(QUrl.login)
-//    Observable<ResultBean<DataBean>> login(@Field("u") String username, @Field("p") String password);
-//
-//    //登出
-//    @GET(QUrl.logout)
-//    Observable<ResultBean<String>> logout();
+    //登录
+    @FormUrlEncoded
+    @POST(QUrl.login)
+    Observable<ResultBean<DataBean>> login(@Field("u") String username, @Field("p") String password);
+
+    //
+    //登出
+    @GET(QUrl.logout)
+    Observable<ResultBean<String>> logout();
 //
 //    //获取用户收入信息
 //    @FormUrlEncoded
@@ -68,10 +79,10 @@ public interface CommenApi {
 //    @GET(QUrl.signSuccess)
 //    Observable<ResultBean<String>> signSuccessed();
 //
-//    //修改信息
-//    @FormUrlEncoded
-//    @POST(QUrl.updateInfo)
-//    Observable<ResultBean<UpdataInfoBean>> updataInfo(@FieldMap Map<String, String> infoMap);
+    //修改信息
+    @FormUrlEncoded
+    @POST(QUrl.updateInfo)
+    Observable<ResultBean<UpdataInfoBean>> updataInfo(@FieldMap Map<String, String> infoMap);
 //
 //    //修改手机号码发送验证码
 //    @FormUrlEncoded
@@ -99,16 +110,17 @@ public interface CommenApi {
 //    @POST(QUrl.updatePwd)
 //    Observable<ResultBean<String>> changePassword(@FieldMap HashMap<String, String> allParamMap);
 //
-//    //确认修改密码
-//    @FormUrlEncoded
-//    @POST(QUrl.opinion)
-//    Observable<ResultBean<String>> opinion(@FieldMap HashMap<String, String> allParamMap);
-//
-    //版本更新
+    //确认修改密码
+    @FormUrlEncoded
+    @POST(QUrl.opinion)
+    Observable<ResultBean<String>> opinion(@FieldMap HashMap<String, String> allParamMap);
+
+//    版本更新
     @FormUrlEncoded
     @POST(QUrl.updateVersion)
     Observable<ResultBean<OwnCheckVersionBean>> updataVersion(@Field("type") String phoneNumber);
-//
+
+    //
 //    //领取积分
 //    @FormUrlEncoded
 //    @POST(QUrl.getJf)
@@ -127,7 +139,8 @@ public interface CommenApi {
     //领取积分
     @GET(QUrl.loadingImg)
     Observable<ResultBean<LoadingImgBean>> loadingImg();
-//
+
+    //
 //    //帮助信息
 //    @GET(QUrl.getHelpInfo)
 //    Observable<ResultBean<KefuInfoBean>> getHelpInfo();
@@ -138,18 +151,21 @@ public interface CommenApi {
     Observable<ResultBean<TaobaoUrlBean>> tb_privilegeUrl(
             @Field("alipayItemId") String phone, @Field("alipayCouponId") String taobaoNumber,
             @Field("img") String img, @Field("name") String name);
-//
+
+    //
     //进入app时的广告图
     @POST(QUrl.advertisementInfo)
     Observable<ResultBean<AdvertisementBean>> advertisementInfo();
-//
+
+    //
     //根据商品id获取商品详细信息
     @FormUrlEncoded
     @POST(QUrl.getProductInfo)
     Observable<ResultBean<LiveProductInfoBean>> getProductInfo(@Field("productId") String productId,
                                                                @Field("type") String type,
                                                                @Field("zbjId") String zbjId);
-//
+
+    //
 //    //转分享信息
 //    @POST(QUrl.zhaunInfo)
 //    Observable<ResultBean<GetInfoBean>> zhaunInfo();
@@ -162,7 +178,8 @@ public interface CommenApi {
     //获取分享商品的域名
     @POST(QUrl.getShareProductUrl)
     Observable<ResultBean<GetHostUrlBean>> getShareProductUrl();
-//    //校验用户身份获取验证码
+
+    //    //校验用户身份获取验证码
 //    @POST(QUrl.getCheckCode)
 //    Observable<ResultBean<String>> getCheckCode();
 //
@@ -178,5 +195,10 @@ public interface CommenApi {
 //    //分享app图片接口
 //    @POST(QUrl.getShareImages)
 //    Observable<ResultBean<ShareAppImages>> getShareAppImages();
+
+    //帮助信息
+    @FormUrlEncoded
+    @POST(QUrl.getHelpInfoNew)
+    Observable<ResultBean<HelpInfoNewBean>> getHelpInfoNew(@Field("type") int type);
 
 }

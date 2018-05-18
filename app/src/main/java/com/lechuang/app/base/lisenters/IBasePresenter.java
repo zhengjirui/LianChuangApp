@@ -1,5 +1,6 @@
 package com.lechuang.app.base.lisenters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -61,6 +62,8 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
 
     void onResume();
 
+    void onHiddenChanged(boolean hidden);
+
     void onRestart();
 
     void onPause();
@@ -70,6 +73,9 @@ public interface IBasePresenter extends ISmartRefreshLisenter{
     void onDestroy();
 
     boolean onKeyDown(boolean keyBoolean,int keyCode, KeyEvent event);
+
+    void onActivityResult(int requestCode, int resultCode, Intent data);
+    
 
     /**
      * 设置是否可以下拉刷新

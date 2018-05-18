@@ -145,13 +145,13 @@ public class MainActivity extends BaseNavTabActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        setUserInfo();
         dialogClipSearch();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        setUserInfo();
         MobclickAgent.onPause(this);
     }
 
